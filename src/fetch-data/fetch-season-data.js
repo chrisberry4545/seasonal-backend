@@ -1,5 +1,6 @@
 const {
   getAllSeasonData,
+  getSeasonDataBySeasonName,
   hydrateSeasonData
 } = require('./../data-access');
 
@@ -10,7 +11,7 @@ const {
 const seasonCache = new Cache();
 const seasonCacheKey = 'seasons';
 
-const fetchSeasonData = async () => {
+const fetchAllSeasonData = async () => {
   const cachedSeasonData = seasonCache.get(seasonCacheKey);
   if (cachedSeasonData) {
     return cachedSeasonData;
@@ -21,6 +22,19 @@ const fetchSeasonData = async () => {
   return hydratedResults;
 };
 
+const fetchSeasonDataBySeasonName = async (seasonName) => {
+  const cacheKey = `${seasonCacheKey}:${seasonName}`;
+  const cachedSeasonData = seasonCache.get(cacheKey);
+  if (cachedSeasonData) {
+    return cachedSeasonData;
+  }
+  const result = await getSeasonDataBySeasonName(seasonName);
+  const hydratedResult = hydrateSeasonData(result);
+  seasonCache.set(cacheKey, hydratedResult);
+  return hydratedResult;
+};
+
 module.exports = {
-  fetchSeasonData
+  fetchAllSeasonData,
+  fetchSeasonDataBySeasonName
 };
