@@ -2,7 +2,7 @@ const AIRTABLE_SEASON_FIELDS = {
   FOOD: 'food',
   NAME: 'name',
   RECIPES: 'recipes',
-  SORT_ORDER: 'sortOrder'
+  SEASON_INDEX: 'seasonIndex'
 };
 
 module.exports = {

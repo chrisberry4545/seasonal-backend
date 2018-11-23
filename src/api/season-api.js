@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 const {
   fetchAllSeasonData,
-  fetchSeasonDataBySeasonName
+  fetchSeasonDataBySeasonIndex
 } = require('./../fetch-data');
 
 module.exports = (router = new Router()) => {
@@ -14,10 +14,10 @@ module.exports = (router = new Router()) => {
       return res.status(500).send(err);
     }
   });
-  router.get('/:seasonName', async (req, res) => {
-    const { seasonName } = req.params;
+  router.get('/:seasonIndex', async (req, res) => {
+    const { seasonIndex } = req.params;
     try {
-      const result = await fetchSeasonDataBySeasonName(seasonName);
+      const result = await fetchSeasonDataBySeasonIndex(seasonIndex);
       return res.json(result);
     } catch (err) {
       return res.status(500).send(err.message);

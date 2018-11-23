@@ -14,7 +14,8 @@ const {
 const {
   filterByField,
   hydrateAirtableData,
-  retrieveAirtableData
+  retrieveAirtableData,
+  retrieveSingleAirtableRow
 } = require('../airtable');
 
 const seasonFields = [
@@ -28,17 +29,18 @@ const getAllSeasonData = () => {
     tableName: AIRTABLE_TABLES.SEASONS,
     fields: seasonFields,
     sort: [{
-      field: AIRTABLE_SEASON_FIELDS.SORT_ORDER,
+      field: AIRTABLE_SEASON_FIELDS.SEASON_INDEX,
       direction: 'asc'
     }]
   });
 };
 
-const getSeasonDataBySeasonName = (seasonName) => {
-  return retrieveAirtableData({
+const getSeasonDataBySeasonIndex = (seasonIndex) => {
+  return retrieveSingleAirtableRow({
     tableName: AIRTABLE_TABLES.SEASONS,
     fields: seasonFields,
-    filterByFormula: filterByField(AIRTABLE_SEASON_FIELDS.NAME, seasonName)
+    filterByFormula:
+      filterByField(AIRTABLE_SEASON_FIELDS.SEASON_INDEX, seasonIndex)
   });
 };
 
@@ -57,6 +59,6 @@ const hydrateSeasonData = (seasonData) => {
 
 module.exports = {
   getAllSeasonData,
-  getSeasonDataBySeasonName,
+  getSeasonDataBySeasonIndex,
   hydrateSeasonData
 };

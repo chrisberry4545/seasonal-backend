@@ -6,7 +6,7 @@ const filterByIds = (ids) => {
 };
 
 const filterByField = (fieldName, fieldValue) => (
-  `LOWER(${fieldName}) = LOWER("${fieldValue}")`
+  `${fieldName} = ${fieldValue}`
 );
 
 module.exports = {

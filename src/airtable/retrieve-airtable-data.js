@@ -44,6 +44,12 @@ const retrieveAirtableData = ({
       });
   });
 };
+
+const retrieveSingleAirtableRow = (options) => {
+  return retrieveAirtableData(options).then(([ firstRecord ]) => firstRecord);
+};
+
 module.exports = {
-  retrieveAirtableData
+  retrieveAirtableData,
+  retrieveSingleAirtableRow
 };

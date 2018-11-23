@@ -1,13 +1,6 @@
-const { airtable } = require('./airtable');
-const dataUtils = require('./airtable-data-utils');
-const filterByUtils = require('./airtable-filter-by-utils');
-const {
-  retrieveAirtableData
-} = require('./retrieve-airtable-data');
-
 module.exports = {
-  ...dataUtils,
-  ...filterByUtils,
-  airtable,
-  retrieveAirtableData
+  ...require('./airtable'),
+  ...require('./airtable-data-utils'),
+  ...require('./airtable-filter-by-utils'),
+  ...require('./retrieve-airtable-data')
 };
