@@ -13,7 +13,7 @@ const retrieveAirtableData = ({
   filterByFormula,
   sort
 }) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     let allRecords = [];
     const airtableSelect = {
       fields
@@ -37,7 +37,8 @@ const retrieveAirtableData = ({
         resolve(records);
       }, (err) => {
         if (err) {
-          return [];
+          reject(err);
+          return;
         }
         resolve(allRecords);
       });
