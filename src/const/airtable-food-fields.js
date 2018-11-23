@@ -1,6 +1,7 @@
 const AIRTABLE_FOOD_FIELDS = {
   NAME: 'name',
-  SEASONS: 'seasons'
+  SEASONS: 'seasons',
+  IMAGE_URL_SMALL: 'imageUrlSmall'
 };
 
 module.exports = {
