@@ -12,7 +12,8 @@ const getRecipesWithIds = (ids) => {
   return retrieveAirtableData({
     tableName: AIRTABLE_TABLES.RECIPES,
     fields: [
-      AIRTABLE_RECIPE_FIELDS.NAME
+      AIRTABLE_RECIPE_FIELDS.NAME,
+      AIRTABLE_RECIPE_FIELDS.LINK_URL
     ],
     filterByFormula: filterByIds(ids)
   });
