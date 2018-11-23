@@ -13,7 +13,7 @@ const retrieveAirtableIds = (data, propertyName) => (
     .reduce((array, next) => [
       ...array,
       next
-    ])
+    ], [])
 );
 
 const populateExistingData = (dataToAddTo, dataToGetFrom, propertyName) => (
@@ -43,25 +43,32 @@ const hydrateAirtableData = (
   dataToHydrate,
   propertyNamesAndGetIdFunctions
 ) => {
+  const isArray = Array.isArray(dataToHydrate);
+  const dataAsArray = isArray
+    ? dataToHydrate
+    : [dataToHydrate];
   return Promise.all(
     propertyNamesAndGetIdFunctions.map(({
       propertyName,
       getIdFunction
     }) => retrieveMatchingTableData(
-      dataToHydrate,
+      dataAsArray,
       propertyName,
       getIdFunction
     ))
-  ).then((matchingTableData) => (
-    propertyNamesAndGetIdFunctions
+  ).then((matchingTableData) => {
+    const hydratedArrayResult = propertyNamesAndGetIdFunctions
       .reduce((hydratedData, { propertyName }, index) => {
         return populateExistingData(
           hydratedData,
           matchingTableData[index],
           propertyName
         );
-      }, dataToHydrate)
-  ));
+      }, dataAsArray);
+    return isArray
+      ? hydratedArrayResult
+      : hydratedArrayResult[0];
+  });
 };
 
 module.exports = {

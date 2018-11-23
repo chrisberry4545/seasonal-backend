@@ -12,22 +12,33 @@ const {
 } = require('./recipe-data');
 
 const {
+  filterByField,
   hydrateAirtableData,
   retrieveAirtableData
 } = require('../airtable');
 
+const seasonFields = [
+  AIRTABLE_SEASON_FIELDS.NAME,
+  AIRTABLE_SEASON_FIELDS.FOOD,
+  AIRTABLE_SEASON_FIELDS.RECIPES
+];
+
 const getAllSeasonData = () => {
   return retrieveAirtableData({
     tableName: AIRTABLE_TABLES.SEASONS,
-    fields: [
-      AIRTABLE_SEASON_FIELDS.NAME,
-      AIRTABLE_SEASON_FIELDS.FOOD,
-      AIRTABLE_SEASON_FIELDS.RECIPES
-    ],
+    fields: seasonFields,
     sort: [{
       field: AIRTABLE_SEASON_FIELDS.SORT_ORDER,
       direction: 'asc'
     }]
+  });
+};
+
+const getSeasonDataBySeasonName = (seasonName) => {
+  return retrieveAirtableData({
+    tableName: AIRTABLE_TABLES.SEASONS,
+    fields: seasonFields,
+    filterByFormula: filterByField(AIRTABLE_SEASON_FIELDS.NAME, seasonName)
   });
 };
 
@@ -46,5 +57,6 @@ const hydrateSeasonData = (seasonData) => {
 
 module.exports = {
   getAllSeasonData,
+  getSeasonDataBySeasonName,
   hydrateSeasonData
 };
