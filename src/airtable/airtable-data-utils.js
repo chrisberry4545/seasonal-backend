@@ -12,7 +12,7 @@ const retrieveAirtableIds = (data, propertyName) => (
     .filter(Boolean)
     .reduce((array, next) => [
       ...array,
-      next
+      ...next
     ], [])
 );
 
