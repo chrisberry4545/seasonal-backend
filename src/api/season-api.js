@@ -1,15 +1,13 @@
 const { Router } = require('express');
 
 const {
-  getAllSeasonData,
-  hydrateSeasonData
-} = require('./../data');
+  fetchSeasonData
+} = require('./../fetch-data');
 
 module.exports = (router = new Router()) => {
   router.get('/', async (req, res) => {
-    const results = await getAllSeasonData();
-    const hydratedResults = await hydrateSeasonData(results);
-    return res.json(hydratedResults);
+    const results = await fetchSeasonData();
+    return res.json(results);
   });
   return router;
 };
