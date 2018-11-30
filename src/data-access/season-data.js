@@ -57,8 +57,16 @@ const hydrateSeasonData = (seasonData) => {
   );
 };
 
+const sortByName = (a, b) => a.name > b.name ? 1 : -1;
+
+const sortSeasonData = (seasonData) => ({
+  ...seasonData,
+  food: seasonData.food.sort(sortByName)
+});
+
 module.exports = {
   getAllSeasonData,
   getSeasonDataBySeasonIndex,
-  hydrateSeasonData
+  hydrateSeasonData,
+  sortSeasonData
 };

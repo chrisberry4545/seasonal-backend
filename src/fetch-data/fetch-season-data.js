@@ -1,7 +1,8 @@
 const {
   getAllSeasonData,
   getSeasonDataBySeasonIndex,
-  hydrateSeasonData
+  hydrateSeasonData,
+  sortSeasonData
 } = require('./../data-access');
 
 const {
@@ -18,8 +19,9 @@ const fetchAllSeasonData = async () => {
   }
   const results = await getAllSeasonData();
   const hydratedResults = await hydrateSeasonData(results);
-  seasonCache.set(seasonCacheKey, hydratedResults);
-  return hydratedResults;
+  const sortedResult = sortSeasonData(hydratedResults);
+  seasonCache.set(seasonCacheKey, sortedResult);
+  return sortedResult;
 };
 
 const fetchSeasonDataBySeasonIndex = async (seasonIndex) => {
@@ -29,9 +31,10 @@ const fetchSeasonDataBySeasonIndex = async (seasonIndex) => {
     return cachedSeasonData;
   }
   const result = await getSeasonDataBySeasonIndex(seasonIndex);
-  const hydratedResult = hydrateSeasonData(result);
-  seasonCache.set(cacheKey, hydratedResult);
-  return hydratedResult;
+  const hydratedResult = await hydrateSeasonData(result);
+  const sortedResult = sortSeasonData(hydratedResult);
+  seasonCache.set(cacheKey, sortedResult);
+  return sortedResult;
 };
 
 module.exports = {
