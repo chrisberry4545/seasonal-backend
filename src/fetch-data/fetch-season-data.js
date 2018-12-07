@@ -18,10 +18,8 @@ const fetchAllSeasonData = async () => {
     return cachedSeasonData;
   }
   const results = await getAllSeasonData();
-  const hydratedResults = await hydrateSeasonData(results);
-  const sortedResult = sortSeasonData(hydratedResults);
-  seasonCache.set(seasonCacheKey, sortedResult);
-  return sortedResult;
+  seasonCache.set(seasonCacheKey, results);
+  return results;
 };
 
 const fetchSeasonDataBySeasonIndex = async (seasonIndex) => {

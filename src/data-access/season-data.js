@@ -18,16 +18,12 @@ const {
   retrieveSingleAirtableRow
 } = require('../airtable');
 
-const seasonFields = [
-  AIRTABLE_SEASON_FIELDS.NAME,
-  AIRTABLE_SEASON_FIELDS.FOOD,
-  AIRTABLE_SEASON_FIELDS.RECIPES
-];
-
 const getAllSeasonData = () => {
   return retrieveAirtableData({
     tableName: AIRTABLE_TABLES.SEASONS,
-    fields: seasonFields,
+    fields: [
+      AIRTABLE_SEASON_FIELDS.NAME
+    ],
     sort: [{
       field: AIRTABLE_SEASON_FIELDS.SEASON_INDEX,
       direction: 'asc'
@@ -38,7 +34,11 @@ const getAllSeasonData = () => {
 const getSeasonDataBySeasonIndex = (seasonIndex) => {
   return retrieveSingleAirtableRow({
     tableName: AIRTABLE_TABLES.SEASONS,
-    fields: seasonFields,
+    fields: [
+      AIRTABLE_SEASON_FIELDS.NAME,
+      AIRTABLE_SEASON_FIELDS.FOOD,
+      AIRTABLE_SEASON_FIELDS.RECIPES
+    ],
     filterByFormula:
       filterByField(AIRTABLE_SEASON_FIELDS.SEASON_INDEX, seasonIndex)
   });
