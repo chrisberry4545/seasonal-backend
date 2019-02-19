@@ -9,6 +9,6 @@ const app = express();
 app.use(cors);
 app.use(helmet());
 
-app.use('/season-data', seasonApi());
+app.use(`/${process.env.SEASON_DATA_ENDPOINT}`, seasonApi());
 
 module.exports = app;

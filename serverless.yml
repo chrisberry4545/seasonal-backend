@@ -1,0 +1,23 @@
+service: seasonal-backend
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: eu-west-2
+  environment: ${file(.env.yml)}
+
+functions:
+  seasonData:
+    handler: index-serverless.handler
+    events:
+      - http:
+          path: ${file(.env.yml):SEASON_DATA_ENDPOINT}
+          method: get
+      - http:
+          path: ${file(.env.yml):SEASON_DATA_ENDPOINT}/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true
