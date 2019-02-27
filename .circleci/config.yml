@@ -41,4 +41,8 @@ workflows:
   version: 2
   ci:
     jobs:
-      - deploy
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
