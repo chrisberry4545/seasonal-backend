@@ -3,7 +3,7 @@ service: seasonal-backend
 provider:
   name: aws
   runtime: nodejs8.10
-  stage: dev
+  stage: prod
   region: eu-west-2
   environment: ${file(.env.yml)}
 

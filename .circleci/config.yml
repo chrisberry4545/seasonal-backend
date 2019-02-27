@@ -2,26 +2,40 @@ version: 2
 jobs:
   deploy:
     docker:
-      - image: circleci/node:8.4.0
+      - image: circleci/node:8.10
+
     steps:
       - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
       - run:
-          name: Install Heroku CLI
+          name: Copy env config
           command: |
-            if [ ! -L /usr/local/bin/heroku ];
-            then
-              wget https://cli-assets.heroku.com/branches/stable/heroku-linux-amd64.tar.gz
-              sudo mkdir -p /usr/local/lib /usr/local/bin
-              sudo tar -xvzf heroku-linux-amd64.tar.gz -C /usr/local/lib
-              sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
-            fi
+            cp .env-ci.yml .env.yml
+
       - run:
-          name: Deploy Master to Heroku
-          command: |  # this command is framework-dependent and may vary
-            heroku git:remote -a $HEROKU_APP_NAME
-            git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:refs/heads/master
-            sleep 5  # sleep for 5 seconds to wait for dynos
-            heroku restart
+          name: Install Serverless CLI and dependencies
+          command: |
+            sudo npm i -g serverless
+            npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-
+
+      - run:
+          name: Run tests with coverage
+          command: npm test --coverage
+
+      - run:
+          name: Deploy application
+          command: sls deploy --stage dev
 
 workflows:
   version: 2
