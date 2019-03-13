@@ -24,6 +24,12 @@ jobs:
             sudo npm i -g serverless
             npm install
 
+      - run:
+          name: Build dist version
+          command: |
+            npm run build
+            npm run move-dist-to-top-level
+
       - save_cache:
           paths:
             - node_modules

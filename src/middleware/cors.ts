@@ -1,14 +1,19 @@
-const allowedOrigins = require('./allowed-origins.json');
+import allowedOrigins from './allowed-origins.json';
 
-const isAllowedOrigin = (origin) => {
+import {
+  Request,
+  Response,
+  NextFunction
+} from 'express';
+
+const isAllowedOrigin = (origin: string | undefined) => {
   return origin && (
     origin.includes('localhost') ||
-    allowedOrigins.includes(origin)
+    (allowedOrigins as string[]).includes(origin)
   );
 };
 
-// istanbul ignore next
-module.exports = (req, res, next) => {
+export const cors = (req: Request, res: Response, next: NextFunction) => {
   const requestOrigin = req.get('origin');
   if (isAllowedOrigin(requestOrigin)) {
     res.header('Access-Control-Allow-Origin', requestOrigin);
@@ -19,7 +24,7 @@ module.exports = (req, res, next) => {
     res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE');
     res.header(
       'Access-Control-Allow-Credentials',
-      true
+      'true'
     );
   }
   next();

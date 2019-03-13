@@ -1,21 +1,27 @@
-const {
+import {
   airtable
-} = require('./airtable');
+} from './airtable';
 
-const {
+import {
   initObjectFromAirtableRecords
-} = require('./airtable-data-utils');
+} from './airtable-data-utils';
 
-const retrieveAirtableData = ({
+import {
+  AirtableRequestOptions,
+  AirtableBaseRecord,
+  AirtableSelectQuery
+} from '../interfaces';
+
+export const retrieveAirtableData = <T extends AirtableBaseRecord>({
   tableName,
   fields,
   fieldsToIncludeInOutput,
   filterByFormula,
   sort
-}) => {
+}: AirtableRequestOptions<T>): Promise<T[]> => {
   return new Promise((resolve, reject) => {
-    let allRecords = [];
-    const airtableSelect = {
+    let allRecords: T[] = [];
+    const airtableSelect: AirtableSelectQuery<T> = {
       fields
     };
     if (filterByFormula) {
@@ -34,7 +40,6 @@ const retrieveAirtableData = ({
           )
         ];
         fetchNextPage();
-        resolve(records);
       }, (err) => {
         if (err) {
           reject(err);
@@ -45,11 +50,8 @@ const retrieveAirtableData = ({
   });
 };
 
-const retrieveSingleAirtableRow = (options) => {
+export const retrieveSingleAirtableRow = <T extends AirtableBaseRecord>(
+  options: AirtableRequestOptions<T>
+): Promise<T> => {
   return retrieveAirtableData(options).then(([ firstRecord ]) => firstRecord);
-};
-
-module.exports = {
-  retrieveAirtableData,
-  retrieveSingleAirtableRow
 };
