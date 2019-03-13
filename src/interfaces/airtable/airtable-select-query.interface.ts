@@ -1,4 +1,4 @@
-import { AirtableSort } from "./airtable-sort.interface";
+import { AirtableSort } from './airtable-sort.interface';
 
 export interface AirtableSelectQuery<T> {
   fields: Array<keyof T>;

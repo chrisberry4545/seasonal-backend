@@ -8,8 +8,6 @@ export * from './airtable-select-response.interface';
 
 export * from './airtable-select-query.interface';
 
-export * from './airtable-request-options.interface';
-
 export * from './airtable-instance.interface';
 
 export * from './airtable.interface';

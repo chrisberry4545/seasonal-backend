@@ -1,6 +1,6 @@
 import {
   AirtableSort
-} from './airtable-sort.interface';
+} from '../airtable';
 
 export interface AirtableRequestOptions<T> {
   tableName: string;
