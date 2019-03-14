@@ -1,0 +1,14 @@
+[
+  {
+    "id": "0",
+    "name": "January",
+    "seasonIndex": 0
+  },
+  {
+    "id": "1",
+    "name": "February",
+    "seasonIndex": 1,
+    "food": ["f1", "f2"],
+    "recipes": ["r1", "r2"]
+  }
+]
