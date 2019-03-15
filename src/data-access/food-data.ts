@@ -7,7 +7,7 @@ import {
   retrieveAirtableData
 } from '../airtable';
 
-import { Food } from '../interfaces';
+import { Food } from '@chrisb-dev/seasonal-shared';
 
 export const getFoodWithIds = (ids: string[] | string): Promise<Food[]> => {
   return retrieveAirtableData<Food>({

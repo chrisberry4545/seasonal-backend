@@ -7,7 +7,7 @@ import {
   retrieveAirtableData
 } from '../airtable';
 
-import { Recipe } from '../interfaces';
+import { Recipe } from '@chrisb-dev/seasonal-shared';
 
 export const getRecipesWithIds = (
   ids: string[] | string

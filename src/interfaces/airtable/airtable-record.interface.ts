@@ -1,6 +1,6 @@
 import {
   AirtableBaseRecord
-} from './airtable-base-record.interface';
+} from '@chrisb-dev/seasonal-shared';
 
 export interface AirtableRecord<T extends AirtableBaseRecord>
 extends AirtableBaseRecord {

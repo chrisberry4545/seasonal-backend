@@ -1,7 +1,10 @@
 import {
-  AirtableRecord,
-  AirtableBaseRecord
+  AirtableRecord
 } from '../interfaces';
+
+import {
+  AirtableBaseRecord
+} from '@chrisb-dev/seasonal-shared';
 
 export const initObjectFromAirtableRecords = <
   MainType extends AirtableBaseRecord

@@ -8,9 +8,12 @@ import {
 
 import {
   AirtableRequestOptions,
-  AirtableBaseRecord,
   AirtableSelectQuery
 } from '../interfaces';
+
+import {
+  AirtableBaseRecord
+} from '@chrisb-dev/seasonal-shared';
 
 export const retrieveAirtableData = <T extends AirtableBaseRecord>({
   tableName,

@@ -1,5 +1,5 @@
 import { AirtableRecord } from './airtable-record.interface';
-import { AirtableBaseRecord } from './airtable-base-record.interface';
+import { AirtableBaseRecord } from '@chrisb-dev/seasonal-shared';
 
 export interface AirtableSelectResponse<T extends AirtableBaseRecord> {
   eachPage: (

@@ -1,5 +1,3 @@
-export * from './airtable-base-record.interface';
-
 export * from './airtable-record.interface';
 
 export * from './airtable-sort.interface';

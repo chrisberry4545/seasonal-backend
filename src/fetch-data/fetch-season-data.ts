@@ -9,7 +9,7 @@ import {
   Cache
 } from '../cache';
 
-import { BaseSeason, HydratedSeason } from '../interfaces';
+import { BaseSeason, HydratedSeason } from '@chrisb-dev/seasonal-shared';
 
 const allSeasonDataCache = new Cache<BaseSeason[]>();
 const allSeasonDataCacheKey = 'seasons';

@@ -1,9 +1,11 @@
 import {
   Airtable,
-  AirtableBaseRecord,
   AirtableInstance,
   AirtableSelectQuery
 } from '../../interfaces';
+import {
+  AirtableBaseRecord
+} from '@chrisb-dev/seasonal-shared';
 import { AIRTABLE_TABLES } from '../../const';
 
 import mockFoodTableData from './data/food-table.data.json';

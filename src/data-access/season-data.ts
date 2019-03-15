@@ -17,7 +17,7 @@ import {
   getRecipesWithIds
 } from './recipe-data';
 
-import { AirtableSeason, HydratedSeason } from '../interfaces';
+import { AirtableSeason, HydratedSeason } from '@chrisb-dev/seasonal-shared';
 
 export const getAllSeasonData = (): Promise<AirtableSeason[]> => {
   return retrieveAirtableData<AirtableSeason>({
