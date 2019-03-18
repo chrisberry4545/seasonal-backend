@@ -4,7 +4,7 @@ import {
 airtableMockSetup();
 
 import {
-  app,
+  app
 } from '../app';
 
 import supertest from 'supertest';
@@ -47,12 +47,12 @@ describe('Get single season', () => {
     expect(result.status).toBe(200);
   });
 
-  test('Retrieves a single season', async() => {
+  test('Retrieves a single season', async () => {
     const result = await makeSingleSeasonRequest();
     expect(result.body).toMatchSnapshot();
   });
 
-  test('Retrieves a single season with food and recipe data', async() => {
+  test('Retrieves a single season with food and recipe data', async () => {
     const result = await makeSeasonRequestWithFoodAndRecipes();
     expect(result.body).toMatchSnapshot();
   });

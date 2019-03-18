@@ -1,11 +1,11 @@
 import {
-  AirtableSort
+  IAirtableSort
 } from '../airtable';
 
-export interface AirtableRequestOptions<T> {
+export interface IAirtableRequestOptions<T> {
   tableName: string;
   fields: Array<keyof T>;
   fieldsToIncludeInOutput?: Array<keyof T>;
   filterByFormula?: string;
-  sort?: AirtableSort<T>[];
+  sort?: Array<IAirtableSort<T>>;
 }

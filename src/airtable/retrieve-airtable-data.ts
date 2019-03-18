@@ -7,24 +7,24 @@ import {
 } from './airtable-data-utils';
 
 import {
-  AirtableRequestOptions,
-  AirtableSelectQuery
+  IAirtableRequestOptions,
+  IAirtableSelectQuery
 } from '../interfaces';
 
 import {
-  AirtableBaseRecord
+  IAirtableBaseRecord
 } from '@chrisb-dev/seasonal-shared';
 
-export const retrieveAirtableData = <T extends AirtableBaseRecord>({
+export const retrieveAirtableData = <T extends IAirtableBaseRecord>({
   tableName,
   fields,
   fieldsToIncludeInOutput,
   filterByFormula,
   sort
-}: AirtableRequestOptions<T>): Promise<T[]> => {
+}: IAirtableRequestOptions<T>): Promise<T[]> => {
   return new Promise((resolve, reject) => {
     let allRecords: T[] = [];
-    const airtableSelect: AirtableSelectQuery<T> = {
+    const airtableSelect: IAirtableSelectQuery<T> = {
       fields
     };
     if (filterByFormula) {
@@ -53,8 +53,8 @@ export const retrieveAirtableData = <T extends AirtableBaseRecord>({
   });
 };
 
-export const retrieveSingleAirtableRow = <T extends AirtableBaseRecord>(
-  options: AirtableRequestOptions<T>
+export const retrieveSingleAirtableRow = <T extends IAirtableBaseRecord>(
+  options: IAirtableRequestOptions<T>
 ): Promise<T> => {
   return retrieveAirtableData(options).then(([ firstRecord ]) => firstRecord);
 };

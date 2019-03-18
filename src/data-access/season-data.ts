@@ -17,39 +17,39 @@ import {
   getRecipesWithIds
 } from './recipe-data';
 
-import { AirtableSeason, HydratedSeason } from '@chrisb-dev/seasonal-shared';
+import { IAirtableSeason, IHydratedSeason } from '@chrisb-dev/seasonal-shared';
 
-export const getAllSeasonData = (): Promise<AirtableSeason[]> => {
-  return retrieveAirtableData<AirtableSeason>({
-    tableName: AIRTABLE_TABLES.SEASONS,
+export const getAllSeasonData = (): Promise<IAirtableSeason[]> => {
+  return retrieveAirtableData<IAirtableSeason>({
     fields: [
       'name'
     ],
     sort: [{
-      field: 'seasonIndex',
-      direction: 'asc'
-    }]
+      direction: 'asc',
+      field: 'seasonIndex'
+    }],
+    tableName: AIRTABLE_TABLES.SEASONS
   });
 };
 
 export const getSeasonDataBySeasonIndex = (
   seasonIndex: number
-): Promise<AirtableSeason> => {
-  return retrieveSingleAirtableRow<AirtableSeason>({
-    tableName: AIRTABLE_TABLES.SEASONS,
+): Promise<IAirtableSeason> => {
+  return retrieveSingleAirtableRow<IAirtableSeason>({
     fields: [
       'name',
       'food',
       'recipes'
     ],
     filterByFormula:
-      filterByField<AirtableSeason>('seasonIndex', seasonIndex)
+      filterByField<IAirtableSeason>('seasonIndex', seasonIndex),
+    tableName: AIRTABLE_TABLES.SEASONS
   });
 };
 
 export const hydrateSeasonData = (
-  seasonData: AirtableSeason
-): Promise<HydratedSeason> => {
+  seasonData: IAirtableSeason
+): Promise<IHydratedSeason> => {
   return hydrateAirtableData(
     seasonData,
     [{
@@ -59,7 +59,7 @@ export const hydrateSeasonData = (
       getIdFunction: getFoodWithIds,
       propertyName: 'food'
     }]
-  ) as Promise<HydratedSeason>;
+  ) as Promise<IHydratedSeason>;
 };
 
 export const sortByName = <ItemWithName extends { name: string }>(
@@ -70,8 +70,8 @@ export const sortByName = <ItemWithName extends { name: string }>(
 );
 
 export const sortSeasonData = (
-  seasonData: HydratedSeason
-): HydratedSeason => ({
+  seasonData: IHydratedSeason
+): IHydratedSeason => ({
   ...seasonData,
   food: seasonData.food && seasonData.food.sort(sortByName)
 });

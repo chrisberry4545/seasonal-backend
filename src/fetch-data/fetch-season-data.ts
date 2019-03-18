@@ -9,15 +9,15 @@ import {
   Cache
 } from '../cache';
 
-import { BaseSeason, HydratedSeason } from '@chrisb-dev/seasonal-shared';
+import { IBaseSeason, IHydratedSeason } from '@chrisb-dev/seasonal-shared';
 
-const allSeasonDataCache = new Cache<BaseSeason[]>();
+const allSeasonDataCache = new Cache<IBaseSeason[]>();
 const allSeasonDataCacheKey = 'seasons';
 
-const singleSeasonCache = new Cache<HydratedSeason>();
+const singleSeasonCache = new Cache<IHydratedSeason>();
 const singleSeasonCacheKey = 'single-season';
 
-export const fetchAllSeasonData = async (): Promise<BaseSeason[]> => {
+export const fetchAllSeasonData = async (): Promise<IBaseSeason[]> => {
   const cachedSeasonData = allSeasonDataCache.get(allSeasonDataCacheKey);
   if (cachedSeasonData) {
     return cachedSeasonData;
@@ -29,7 +29,7 @@ export const fetchAllSeasonData = async (): Promise<BaseSeason[]> => {
 
 export const fetchSeasonDataBySeasonIndex = async (
   seasonIndex: number
-): Promise<HydratedSeason> => {
+): Promise<IHydratedSeason> => {
   const cacheKey = `${singleSeasonCacheKey}:${seasonIndex}`;
   const cachedSeasonData = singleSeasonCache.get(cacheKey);
   if (cachedSeasonData) {

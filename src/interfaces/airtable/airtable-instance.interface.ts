@@ -1,12 +1,12 @@
-import { AirtableSelectQuery } from './airtable-select-query.interface';
+import { IAirtableSelectQuery } from './airtable-select-query.interface';
 
 import {
-  AirtableSelectResponse
+  IAirtableSelectResponse
 } from './airtable-select-response.interface';
-import { AirtableBaseRecord } from '@chrisb-dev/seasonal-shared';
+import { IAirtableBaseRecord } from '@chrisb-dev/seasonal-shared';
 
-export interface AirtableInstance {
-  select: <T extends AirtableBaseRecord>(
-    select: AirtableSelectQuery<T>
-  ) => AirtableSelectResponse<T>;
+export interface IAirtableInstance {
+  select: <T extends IAirtableBaseRecord>(
+    select: IAirtableSelectQuery<T>
+  ) => IAirtableSelectResponse<T>;
 }

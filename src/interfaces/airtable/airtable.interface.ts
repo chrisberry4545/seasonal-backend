@@ -1,7 +1,7 @@
-import { AirtableInstance } from './airtable-instance.interface';
+import { IAirtableInstance } from './airtable-instance.interface';
 
-export interface Airtable {
+export interface IAirtable {
   base(
     key: string
-  ): (tableName: string) => AirtableInstance;
+  ): (tableName: string) => IAirtableInstance;
 }

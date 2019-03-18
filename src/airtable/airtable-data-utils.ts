@@ -1,15 +1,15 @@
 import {
-  AirtableRecord
+  IAirtableRecord
 } from '../interfaces';
 
 import {
-  AirtableBaseRecord
+  IAirtableBaseRecord
 } from '@chrisb-dev/seasonal-shared';
 
 export const initObjectFromAirtableRecords = <
-  MainType extends AirtableBaseRecord
+  MainType extends IAirtableBaseRecord
 >(
-  records: AirtableRecord<MainType>[],
+  records: Array<IAirtableRecord<MainType>>,
   fields: Array<keyof MainType>
 ): MainType[] => (
   records.map((record) => fields.reduce((obj, nextFieldName) => {
@@ -21,10 +21,10 @@ export const initObjectFromAirtableRecords = <
 );
 
 export const retrieveAirtableIds = <
-  MainType extends AirtableBaseRecord
+  MainType extends IAirtableBaseRecord
 >(
   data: MainType[],
-  propertyName: keyof MainType,
+  propertyName: keyof MainType
 ): string[] => (
   data.map((item) => item[propertyName])
     .filter(Boolean)
@@ -35,8 +35,8 @@ export const retrieveAirtableIds = <
 );
 
 export const populateExistingData = <
-  MainType extends AirtableBaseRecord,
-  SubType extends AirtableBaseRecord
+  MainType extends IAirtableBaseRecord,
+  SubType extends IAirtableBaseRecord
 >(
   dataToAddTo: MainType[],
   dataToGetFrom: SubType[],
@@ -56,8 +56,8 @@ export const populateExistingData = <
 );
 
 export const retrieveMatchingTableData = <
-  MainType extends AirtableBaseRecord,
-  SubType extends AirtableBaseRecord
+  MainType extends IAirtableBaseRecord,
+  SubType extends IAirtableBaseRecord
 >(
   dataToHydrate: MainType[],
   propertyName: keyof MainType,
@@ -70,16 +70,16 @@ export const retrieveMatchingTableData = <
 };
 
 export const hydrateAirtableData = <
-  MainType extends AirtableBaseRecord,
+  MainType extends IAirtableBaseRecord,
   SubTypeKey extends keyof MainType,
-  SubType extends AirtableBaseRecord
+  SubType extends IAirtableBaseRecord
 >(
   dataToHydrate: MainType,
   propertyNamesAndGetIdFunctions: Array<{
-    getIdFunction (ids: string[] | string): Promise<SubType[]>,
-    propertyName: SubTypeKey
+    propertyName: SubTypeKey,
+    getIdFunction(ids: string[] | string): Promise<SubType[]>
   }>
-): Promise<AirtableBaseRecord | AirtableBaseRecord[]> => {
+): Promise<IAirtableBaseRecord | IAirtableBaseRecord[]> => {
   const dataAsArray: MainType[] = Array.isArray(dataToHydrate)
     ? dataToHydrate
     : [dataToHydrate];

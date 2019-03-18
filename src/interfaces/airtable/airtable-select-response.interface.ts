@@ -1,10 +1,10 @@
-import { AirtableRecord } from './airtable-record.interface';
-import { AirtableBaseRecord } from '@chrisb-dev/seasonal-shared';
+import { IAirtableRecord } from './airtable-record.interface';
+import { IAirtableBaseRecord } from '@chrisb-dev/seasonal-shared';
 
-export interface AirtableSelectResponse<T extends AirtableBaseRecord> {
+export interface IAirtableSelectResponse<T extends IAirtableBaseRecord> {
   eachPage: (
     success: (
-      records: AirtableRecord<T>[],
+      records: Array<IAirtableRecord<T>>,
       fetchNextPage: () => void
     ) => void,
     error: (

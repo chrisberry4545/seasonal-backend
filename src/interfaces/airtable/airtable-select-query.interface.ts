@@ -1,7 +1,7 @@
-import { AirtableSort } from './airtable-sort.interface';
+import { IAirtableSort } from './airtable-sort.interface';
 
-export interface AirtableSelectQuery<T> {
+export interface IAirtableSelectQuery<T> {
   fields: Array<keyof T>;
   filterByFormula?: string;
-  sort?: AirtableSort<T>[];
+  sort?: Array<IAirtableSort<T>>;
 }

@@ -7,15 +7,15 @@ import {
   retrieveAirtableData
 } from '../airtable';
 
-import { Food } from '@chrisb-dev/seasonal-shared';
+import { IFood } from '@chrisb-dev/seasonal-shared';
 
-export const getFoodWithIds = (ids: string[] | string): Promise<Food[]> => {
-  return retrieveAirtableData<Food>({
-    tableName: AIRTABLE_TABLES.FOOD,
+export const getFoodWithIds = (ids: string[] | string): Promise<IFood[]> => {
+  return retrieveAirtableData<IFood>({
     fields: [
       'name',
       'imageUrlSmall'
     ],
-    filterByFormula: filterByIds(ids)
+    filterByFormula: filterByIds(ids),
+    tableName: AIRTABLE_TABLES.FOOD
   });
 };
