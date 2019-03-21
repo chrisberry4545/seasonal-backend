@@ -5,15 +5,15 @@ import {
 } from './middleware/cors';
 
 import {
-  seasonApi
-} from './api/season-api';
+  v1Api
+} from './api/v1';
 
 const app = express();
 
 app.use(cors);
 app.use(helmet());
 
-app.use(`/${process.env.SEASON_DATA_ENDPOINT}`, seasonApi());
+app.use('/', v1Api());
 
 export {
   app

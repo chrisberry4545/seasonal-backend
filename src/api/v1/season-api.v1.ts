@@ -7,7 +7,7 @@ import {
 import {
   fetchAllSeasonData,
   fetchSeasonDataBySeasonIndex
-} from '../fetch-data';
+} from '../../fetch-data';
 
 export const seasonApi = (router = Router()) => {
   router.get('/', async (req: Request, res: Response) => {

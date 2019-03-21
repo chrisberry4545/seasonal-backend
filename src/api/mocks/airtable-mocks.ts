@@ -73,8 +73,8 @@ const mockAirtable: IAirtable = {
 
 export const airtableMockSetup = () => {
   jest.mock('airtable', () => {
-    return () => {
+    return jest.fn().mockImplementation(() => {
       return mockAirtable;
-    };
+    });
   });
 };

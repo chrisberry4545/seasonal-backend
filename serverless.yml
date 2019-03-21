@@ -12,10 +12,10 @@ functions:
     handler: index-serverless.handler
     events:
       - http:
-          path: ${file(.env.yml):SEASON_DATA_ENDPOINT}
+          path: ${file(.env.yml):V1_ENDPOINT}/${file(.env.yml):SEASON_DATA_ENDPOINT}
           method: get
       - http:
-          path: ${file(.env.yml):SEASON_DATA_ENDPOINT}/{id}
+          path: ${file(.env.yml):V1_ENDPOINT}/${file(.env.yml):SEASON_DATA_ENDPOINT}/{id}
           method: get
           request:
             parameters:

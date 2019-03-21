@@ -1,19 +1,20 @@
 import {
   airtableMockSetup
-} from './mocks';
+} from '../mocks';
 airtableMockSetup();
 
 import {
   app
-} from '../app';
+} from '../../app';
 
 import supertest from 'supertest';
 
-const seasonUrl = process.env.SEASON_DATA_ENDPOINT;
+const v1SeasonUrl = `${process.env.V1_ENDPOINT}/` +
+  `${process.env.SEASON_DATA_ENDPOINT}`;
 
 describe('Get all seasons', () => {
   const makeAllSeasonRequest = () => {
-    return supertest(app).get(`/${seasonUrl}`);
+    return supertest(app).get(`/${v1SeasonUrl}`);
   };
 
   test('Returns a status of 200', async () => {
@@ -35,7 +36,7 @@ describe('Get all seasons', () => {
 
 describe('Get single season', () => {
   const makeSingleSeasonRequest = (id: string = '0') => {
-    return supertest(app).get(`/${seasonUrl}/${id}`);
+    return supertest(app).get(`/${v1SeasonUrl}/${id}`);
   };
 
   const makeSeasonRequestWithFoodAndRecipes = () => {
