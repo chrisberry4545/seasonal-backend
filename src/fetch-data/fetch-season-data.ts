@@ -2,7 +2,7 @@ import {
   getAllSeasonData,
   getSeasonDataBySeasonIndex,
   hydrateSeasonData,
-  sortSeasonData
+  sortHydratedSeasonData
 } from '../data-access';
 
 import {
@@ -37,7 +37,7 @@ export const fetchSeasonDataBySeasonIndex = async (
   }
   const result = await getSeasonDataBySeasonIndex(seasonIndex);
   const hydratedResult = await hydrateSeasonData(result);
-  const sortedResult = sortSeasonData(hydratedResult);
+  const sortedResult = sortHydratedSeasonData(hydratedResult);
   singleSeasonCache.set(cacheKey, sortedResult);
   return sortedResult;
 };

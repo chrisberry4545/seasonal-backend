@@ -21,7 +21,7 @@
   "author": "Chris Berry <chrisberry4545@googlemail.com> (http://chrisbdev.com)",
   "license": "ISC",
   "dependencies": {
-    "@chrisb-dev/seasonal-shared": "1.1.0",
+    "@chrisb-dev/seasonal-shared": "1.2.1",
     "@types/express": "^4.16.1",
     "@types/helmet": "0.0.43",
     "@types/jest": "^24.0.11",

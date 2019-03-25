@@ -1,3 +1,6 @@
+// tslint:disable-next-line
+require('env-yaml').config();
+
 import express from 'express';
 import helmet from 'helmet';
 import {

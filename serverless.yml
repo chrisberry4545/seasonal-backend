@@ -21,3 +21,13 @@ functions:
             parameters:
               paths:
                 id: true
+  foodData:
+    handler: index-serverless.handler
+    events:
+      - http:
+          path: ${file(.env.yml):V1_ENDPOINT}/${file(.env.yml):FOOD_DATA_ENDPOINT}/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true

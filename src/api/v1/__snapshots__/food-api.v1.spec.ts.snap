@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get single food item Retrieves a single food item 1`] = `
+Object {
+  "id": "f1",
+  "name": "Beetroot",
+  "seasons": Array [
+    Object {
+      "id": "0",
+      "name": "January",
+      "seasonIndex": 0,
+    },
+    Object {
+      "id": "1",
+      "name": "February",
+      "seasonIndex": 1,
+    },
+  ],
+}
+`;

@@ -1,7 +1,11 @@
 [
   {
     "name": "Beetroot",
-    "id": "f1"
+    "id": "f1",
+    "seasons": [
+      "0",
+      "1"
+    ]
   },
   {
     "name": "Apple",
