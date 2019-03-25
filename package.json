@@ -16,7 +16,8 @@
     "build": "tsc && npm run copy-env",
     "copy-env": "cp .env.yml dist/.env.yml",
     "move-dist-to-top-level": "cp -r ./dist/* ./",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'"
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "test": "jest"
   },
   "author": "Chris Berry <chrisberry4545@googlemail.com> (http://chrisbdev.com)",
   "license": "ISC",
