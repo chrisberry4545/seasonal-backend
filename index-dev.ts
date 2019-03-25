@@ -1,3 +1,6 @@
+// tslint:disable-next-line
+require('env-yaml').config();
+
 import {
   app
 } from './src/app';
@@ -15,3 +18,5 @@ process.on('SIGINT', () => {
   console.log('Exiting');
   process.exit();
 });
+
+export { app };

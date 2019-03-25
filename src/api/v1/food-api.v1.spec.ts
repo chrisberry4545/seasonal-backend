@@ -1,3 +1,6 @@
+// tslint:disable-next-line
+require('env-yaml').config();
+
 import {
   airtableMockSetup
 } from '../mocks';
