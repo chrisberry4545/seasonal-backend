@@ -7,10 +7,6 @@ Array [
       Object {
         "id": "f1",
         "name": "Beetroot",
-        "seasons": Array [
-          "0",
-          "1",
-        ],
       },
     ],
     "id": "0",
@@ -21,10 +17,6 @@ Array [
       Object {
         "id": "f1",
         "name": "Beetroot",
-        "seasons": Array [
-          "0",
-          "1",
-        ],
       },
     ],
     "id": "1",

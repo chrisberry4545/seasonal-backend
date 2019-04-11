@@ -1,6 +1,3 @@
-// tslint:disable-next-line
-require('env-yaml').config();
-
 import {
   airtableMockSetup
 } from '../mocks';
@@ -11,9 +8,9 @@ import {
 } from '../../app';
 
 import supertest from 'supertest';
+import { V1_ENDPOINT, SEASON_DATA_ENDPOINT } from '../../config';
 
-const v1SeasonUrl = `${process.env.V1_ENDPOINT}/` +
-  `${process.env.SEASON_DATA_ENDPOINT}`;
+const v1SeasonUrl = `${V1_ENDPOINT}/${SEASON_DATA_ENDPOINT}`;
 
 describe('Get all seasons', () => {
   const makeAllSeasonRequest = () => {

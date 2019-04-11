@@ -1,6 +1,3 @@
-// tslint:disable-next-line
-require('env-yaml').config();
-
 import {
   airtableMockSetup
 } from '../mocks';
@@ -11,9 +8,9 @@ import {
 } from '../../app';
 
 import supertest from 'supertest';
+import { V1_ENDPOINT, FOOD_DATA_ENDPOINT } from '../../config';
 
-const v1FoodUrl = `${process.env.V1_ENDPOINT}/` +
-  `${process.env.FOOD_DATA_ENDPOINT}`;
+const v1FoodUrl = `${V1_ENDPOINT}/${FOOD_DATA_ENDPOINT}`;
 
 describe('Get single food item', () => {
   const makeSingleFoodItemRequest = (id: string = 'f1') => {
