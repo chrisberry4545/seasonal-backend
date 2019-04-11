@@ -31,3 +31,9 @@ functions:
             parameters:
               paths:
                 id: true
+  seasonsWithFood:
+    handler: index-serverless.handler
+    events:
+      - http:
+          path: ${file(.env.yml):V1_ENDPOINT}/${file(.env.yml):SEASON_WITH_FOOD_ENDPOINT}
+          method: get

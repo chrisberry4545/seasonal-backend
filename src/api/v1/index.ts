@@ -10,6 +10,10 @@ import {
   seasonApi
 } from './season-api.v1';
 
+import {
+  seasonWithFoodApi
+} from './season-with-food-api.v1';
+
 export const v1Api = (router = Router()) => {
   router.use(
     `/${process.env.V1_ENDPOINT}/` +
@@ -20,6 +24,11 @@ export const v1Api = (router = Router()) => {
     `/${process.env.V1_ENDPOINT}/` +
       process.env.FOOD_DATA_ENDPOINT,
     foodApi()
+  );
+  router.use(
+    `/${process.env.V1_ENDPOINT}/` +
+      process.env.SEASON_WITH_FOOD_ENDPOINT,
+    seasonWithFoodApi()
   );
   return router;
 };

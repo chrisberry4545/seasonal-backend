@@ -1,29 +1,40 @@
 import {
   getFoodWithIdsAndSeasonData,
   hydrateFoodData,
-  sortHydratedFoodData
+  sortHydratedFoodData,
+  getAllFoodData
 } from '../data-access';
 
 import {
-  Cache
+  Cache, cacheFunctionResponse
 } from '../cache';
 
-import { IHydratedFood } from '@chrisb-dev/seasonal-shared';
+import { IHydratedFood, IFood } from '@chrisb-dev/seasonal-shared';
+
+const allFoodCache = new Cache<IFood[]>();
+const allFoodItemCacheKey = 'food';
 
 const singleFoodCache = new Cache<IHydratedFood>();
-const singleFoodItemCacheKey = 'single-food';
+const singleFoodCacheKey = 'single-food';
 
-export const fetchFoodDataById = async (
-  foodId: string
-): Promise<IHydratedFood> => {
-  const cacheKey = `${singleFoodItemCacheKey}:${foodId}`;
-  const cachedFoodData = singleFoodCache.get(cacheKey);
-  if (cachedFoodData) {
-    return cachedFoodData;
+export const fetchAllFoodData = cacheFunctionResponse(
+  allFoodCache,
+  allFoodItemCacheKey,
+  async (): Promise<IFood[]> => {
+    const result = await getAllFoodData();
+    return result;
   }
-  const result = await getFoodWithIdsAndSeasonData(foodId);
-  const hydratedResult = await hydrateFoodData(result[0]);
-  const sortedResult = sortHydratedFoodData(hydratedResult);
-  singleFoodCache.set(cacheKey, sortedResult);
-  return sortedResult;
-};
+);
+
+export const fetchFoodDataById = cacheFunctionResponse(
+  singleFoodCache,
+  singleFoodCacheKey,
+  async (
+    foodId: string
+  ): Promise<IHydratedFood> => {
+    const result = await getFoodWithIdsAndSeasonData(foodId);
+    const hydratedResult = await hydrateFoodData(result[0]);
+    const sortedResult = sortHydratedFoodData(hydratedResult);
+    return sortedResult;
+  }
+);

@@ -4,10 +4,10 @@ import { getSeasonDataWithIds } from './season-data';
 import { sortBySeasonIndex } from './data-access-utils';
 
 export const hydrateFoodData = (
-  seasonData: IAirtableFood
+  foodData: IAirtableFood
 ): Promise<IHydratedFood> => {
   return hydrateAirtableData(
-    seasonData,
+    foodData,
     [{
       getIdFunction: getSeasonDataWithIds,
       propertyName: 'seasons'

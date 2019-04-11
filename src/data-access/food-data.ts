@@ -33,3 +33,14 @@ export const getFoodWithIdsAndSeasonData = (
     tableName: AIRTABLE_TABLES.FOOD
   });
 };
+
+export const getAllFoodData = (): Promise<IAirtableFood[]> => {
+  return retrieveAirtableData<IAirtableFood>({
+    fields: [
+      'name',
+      'imageUrlSmall',
+      'seasons'
+    ],
+    tableName: AIRTABLE_TABLES.FOOD
+  });
+};
