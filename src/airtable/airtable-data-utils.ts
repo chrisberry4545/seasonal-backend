@@ -71,13 +71,12 @@ export const retrieveMatchingTableData = <
 
 export const hydrateAirtableData = <
   MainType extends IAirtableBaseRecord,
-  SubTypeKey extends keyof MainType,
-  SubType extends IAirtableBaseRecord
+  SubTypeKey extends keyof MainType
 >(
   dataToHydrate: MainType,
   propertyNamesAndGetIdFunctions: Array<{
     propertyName: SubTypeKey,
-    getIdFunction(ids: string[] | string): Promise<SubType[]>
+    getIdFunction(ids: string[] | string): Promise<IAirtableBaseRecord[]>
   }>
 ): Promise<IAirtableBaseRecord | IAirtableBaseRecord[]> => {
   const dataAsArray: MainType[] = Array.isArray(dataToHydrate)

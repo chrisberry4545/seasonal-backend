@@ -27,7 +27,9 @@ export const getFoodWithIdsAndSeasonData = (
     fields: [
       'name',
       'imageUrlSmall',
-      'seasons'
+      'seasons',
+      'primaryFoodInRecipe',
+      'secondaryFoodInRecipe'
     ],
     filterByFormula: filterByIds(ids),
     tableName: AIRTABLE_TABLES.FOOD

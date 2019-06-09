@@ -1,6 +1,6 @@
 import { Cache } from './cache';
 
-export const cacheFunctionResponse = <T, I>(
+export const cacheFunctionResponse = <T, I extends string | number>(
   cache: Cache<T>,
   cacheKey: string,
   functionToGetData: (...args: I[]) => Promise<T>

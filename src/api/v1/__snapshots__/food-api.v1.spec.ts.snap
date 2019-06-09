@@ -4,6 +4,12 @@ exports[`Get single food item Retrieves a single food item 1`] = `
 Object {
   "id": "f1",
   "name": "Beetroot",
+  "primaryFoodInRecipe": Array [
+    Object {
+      "id": "r1",
+      "name": "recipe 1",
+    },
+  ],
   "seasons": Array [
     Object {
       "id": "0",
@@ -14,6 +20,12 @@ Object {
       "id": "1",
       "name": "February",
       "seasonIndex": 1,
+    },
+  ],
+  "secondaryFoodInRecipe": Array [
+    Object {
+      "id": "r2",
+      "name": "other recipe",
     },
   ],
 }

@@ -49,4 +49,24 @@ describe('Get single food item', () => {
     expect(result.body.seasons[0].id).toBe('0');
     expect(result.body.seasons[1].id).toBe('1');
   });
+
+  test('Hydrates a foods primaryFoodInRecipe ids if they exist', async () => {
+    const result = await makeSingleFoodItemRequest();
+    expect(result.body.primaryFoodInRecipe[0].id).toBe('r1');
+  });
+
+  test('Hydrates a foods primaryFoodInRecipe names if they exist', async () => {
+    const result = await makeSingleFoodItemRequest();
+    expect(result.body.primaryFoodInRecipe[0].name).toBe('recipe 1');
+  });
+
+  test('Hydrates a foods secondaryFoodInRecipe ids if they exist', async () => {
+    const result = await makeSingleFoodItemRequest();
+    expect(result.body.secondaryFoodInRecipe[0].id).toBe('r2');
+  });
+
+  test('Hydrates a foods secondaryFoodInRecipe names if they exist', async () => {
+    const result = await makeSingleFoodItemRequest();
+    expect(result.body.secondaryFoodInRecipe[0].name).toBe('other recipe');
+  });
 });

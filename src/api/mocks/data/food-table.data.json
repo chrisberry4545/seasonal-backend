@@ -5,6 +5,12 @@
     "seasons": [
       "0",
       "1"
+    ],
+    "primaryFoodInRecipe": [
+      "r1"
+    ],
+    "secondaryFoodInRecipe": [
+      "r2"
     ]
   },
   {
