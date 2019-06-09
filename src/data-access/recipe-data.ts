@@ -16,7 +16,9 @@ export const getRecipesWithIds = (
     fields: [
       'name',
       'linkUrl',
-      'imageUrlSmall'
+      'imageUrlSmall',
+      'isVegan',
+      'isVegetarian'
     ],
     filterByFormula: filterByIds(ids),
     tableName: AIRTABLE_TABLES.RECIPES

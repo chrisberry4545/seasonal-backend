@@ -68,6 +68,16 @@ describe('Get single season', () => {
     expect(result.body.recipes.length > 0).toBe(true);
   });
 
+  test('Populates a seasons recipes isVegan if true', async () => {
+    const result = await makeSeasonRequestWithFoodAndRecipes();
+    expect(result.body.recipes[0].isVegan).toBe(true);
+  });
+
+  test('Populates a seasons recipes isVegetarian if true', async () => {
+    const result = await makeSeasonRequestWithFoodAndRecipes();
+    expect(result.body.recipes[1].isVegetarian).toBe(true);
+  });
+
   test('Does not populate a seasons food if they do not exist', async () => {
     const result = await makeSingleSeasonRequest();
     expect(result.body.food).toBeUndefined();

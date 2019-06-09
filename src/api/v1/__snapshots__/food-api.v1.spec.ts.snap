@@ -7,6 +7,7 @@ Object {
   "primaryFoodInRecipe": Array [
     Object {
       "id": "r1",
+      "isVegan": true,
       "name": "recipe 1",
     },
   ],
@@ -25,6 +26,7 @@ Object {
   "secondaryFoodInRecipe": Array [
     Object {
       "id": "r2",
+      "isVegetarian": true,
       "name": "other recipe",
     },
   ],

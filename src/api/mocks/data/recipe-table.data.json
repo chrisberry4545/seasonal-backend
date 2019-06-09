@@ -1,10 +1,12 @@
 [
   {
     "name": "recipe 1",
-    "id": "r1"
+    "id": "r1",
+    "isVegan": true
   },
   {
     "name": "other recipe",
-    "id": "r2"
+    "id": "r2",
+    "isVegetarian": true
   }
 ]
