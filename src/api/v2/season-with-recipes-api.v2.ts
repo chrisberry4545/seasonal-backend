@@ -1,19 +1,18 @@
 import {
-  Router,
-  Request,
-  Response
-} from 'express';
-
+    Router,
+    Request,
+    Response
+  } from 'express';
 import {
-  fetchAllSeasonData,
-  fetchSeasonWithFoodAndRecipes
+  fetchAllSeasonsWithRecipes,
+  fetchSeasonWithRecipes
 } from '../../fetch-data';
 
-export const seasonApi = (router = Router()) => {
+export const seasonWithRecipesApi = (router = Router()) => {
   router.get('/', async (req: Request, res: Response) => {
     try {
-      const results = await fetchAllSeasonData();
-      return res.json(results);
+      const result = await fetchAllSeasonsWithRecipes();
+      return res.json(result);
     } catch (err) {
       return res.status(500).send(err);
     }
@@ -21,7 +20,7 @@ export const seasonApi = (router = Router()) => {
   router.get('/:seasonIndex', async (req: Request, res: Response) => {
     const { seasonIndex } = req.params;
     try {
-      const result = await fetchSeasonWithFoodAndRecipes(seasonIndex);
+      const result = await fetchSeasonWithRecipes(seasonIndex);
       return res.json(result);
     } catch (err) {
       return res.status(500).send(err.message);

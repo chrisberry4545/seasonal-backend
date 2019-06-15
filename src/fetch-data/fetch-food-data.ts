@@ -20,10 +20,7 @@ const singleFoodCacheKey = 'single-food';
 export const fetchAllFoodData = cacheFunctionResponse(
   allFoodCache,
   allFoodItemCacheKey,
-  async (): Promise<IFood[]> => {
-    const result = await getAllFoodData();
-    return result;
-  }
+  async (): Promise<IFood[]> => await getAllFoodData()
 );
 
 export const fetchFoodDataById = cacheFunctionResponse(

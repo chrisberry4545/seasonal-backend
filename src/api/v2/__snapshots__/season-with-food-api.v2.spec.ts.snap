@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get all seasons with food Returns a full list of season data 1`] = `
+Array [
+  Object {
+    "food": Array [
+      Object {
+        "id": "f1",
+        "name": "Beetroot",
+      },
+    ],
+    "id": "0",
+    "name": "January",
+  },
+  Object {
+    "food": Array [
+      Object {
+        "id": "f1",
+        "name": "Beetroot",
+      },
+    ],
+    "id": "1",
+    "name": "February",
+  },
+]
+`;
+
+exports[`Get single season with food Retrieves a single season 1`] = `
+Object {
+  "id": "0",
+  "name": "January",
+}
+`;
+
+exports[`Get single season with food Retrieves a single season with food data 1`] = `
+Object {
+  "food": Array [
+    Object {
+      "id": "f2",
+      "name": "Apple",
+    },
+    Object {
+      "id": "f1",
+      "name": "Beetroot",
+    },
+  ],
+  "id": "1",
+  "name": "February",
+}
+`;
