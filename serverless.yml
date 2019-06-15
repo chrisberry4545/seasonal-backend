@@ -37,3 +37,45 @@ functions:
       - http:
           path: ${file(.env.yml):V1_ENDPOINT}/${file(.env.yml):SEASON_WITH_FOOD_ENDPOINT}
           method: get
+  v2Food:
+    handler: index-serverless.handler
+    events:
+      - http:
+          path: ${file(.env.yml):V2_ENDPOINT}/${file(.env.yml):FOOD_ENDPOINT}/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true
+  v2Season:
+    handler: index-serverless.handler
+    events:
+      - http:
+          path: ${file(.env.yml):V2_ENDPOINT}/${file(.env.yml):SEASON_ENDPOINT}
+          method: get
+  v2SeasonWithFood:
+    handler: index-serverless.handler
+    events:
+      - http:
+          path: ${file(.env.yml):V2_ENDPOINT}/${file(.env.yml):SEASON_WITH_FOOD_ENDPOINT}
+          method: get
+      - http:
+          path: ${file(.env.yml):V2_ENDPOINT}/${file(.env.yml):SEASON_WITH_FOOD_ENDPOINT}/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true
+  v2SeasonWithRecipes:
+    handler: index-serverless.handler
+    events:
+      - http:
+          path: ${file(.env.yml):V2_ENDPOINT}/${file(.env.yml):SEASON_WITH_RECIPES_ENDPOINT}
+          method: get
+      - http:
+          path: ${file(.env.yml):V2_ENDPOINT}/${file(.env.yml):SEASON_WITH_RECIPES_ENDPOINT}/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true

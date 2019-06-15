@@ -12,7 +12,7 @@ export const FOOD_ENDPOINT =
   process.env.FOOD_ENDPOINT || 'food';
 export const SEASON_WITH_FOOD_ENDPOINT =
   process.env.SEASON_WITH_FOOD_ENDPOINT || 'season-with-food';
-export const SEASON_WITH_RECIPE_ENDPOINT =
-  process.env.SEASON_WITH_RECIPE_ENDPOINT || 'season-with-recipes';
+export const SEASON_WITH_RECIPES_ENDPOINT =
+  process.env.SEASON_WITH_RECIPES_ENDPOINT || 'season-with-recipes';
 export const V1_ENDPOINT = process.env.V1_ENDPOINT || 'v1';
 export const V2_ENDPOINT = process.env.V2_ENDPOINT || 'v2';

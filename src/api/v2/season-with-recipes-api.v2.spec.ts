@@ -8,9 +8,9 @@ import {
 } from '../../app';
 
 import supertest from 'supertest';
-import { V2_ENDPOINT, SEASON_WITH_RECIPE_ENDPOINT } from '../../config';
+import { V2_ENDPOINT, SEASON_WITH_RECIPES_ENDPOINT } from '../../config';
 
-const v2SeasonWithRecipesUrl = `${V2_ENDPOINT}/${SEASON_WITH_RECIPE_ENDPOINT}`;
+const v2SeasonWithRecipesUrl = `${V2_ENDPOINT}/${SEASON_WITH_RECIPES_ENDPOINT}`;
 
 describe('Get all seasons with recipes', () => {
   const makeAllSeasonWithRecipesRequest = () => {
