@@ -6,6 +6,10 @@ export const SEASON_DATA_ENDPOINT =
   process.env.SEASON_DATA_ENDPOINT || 'season-data';
 export const FOOD_DATA_ENDPOINT =
   process.env.FOOD_DATA_ENDPOINT || 'food-data';
+export const SEASON_ENDPOINT =
+  process.env.SEASON_ENDPOINT || 'season';
+export const FOOD_ENDPOINT =
+  process.env.FOOD_ENDPOINT || 'food';
 export const SEASON_WITH_FOOD_ENDPOINT =
   process.env.SEASON_WITH_FOOD_ENDPOINT || 'season-with-food';
 export const SEASON_WITH_RECIPE_ENDPOINT =

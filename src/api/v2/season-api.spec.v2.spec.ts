@@ -8,9 +8,9 @@ import {
 } from '../../app';
 
 import supertest from 'supertest';
-import { V2_ENDPOINT, SEASON_DATA_ENDPOINT } from '../../config';
+import { V2_ENDPOINT, SEASON_ENDPOINT } from '../../config';
 
-const v2SeasonUrl = `${V2_ENDPOINT}/${SEASON_DATA_ENDPOINT}`;
+const v2SeasonUrl = `${V2_ENDPOINT}/${SEASON_ENDPOINT}`;
 
 describe('Get all seasons', () => {
   const makeAllSeasonRequest = () => {

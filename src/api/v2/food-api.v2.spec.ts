@@ -8,9 +8,9 @@ import {
 } from '../../app';
 
 import supertest from 'supertest';
-import { V2_ENDPOINT, FOOD_DATA_ENDPOINT } from '../../config';
+import { V2_ENDPOINT, FOOD_ENDPOINT } from '../../config';
 
-const v2FoodUrl = `${V2_ENDPOINT}/${FOOD_DATA_ENDPOINT}`;
+const v2FoodUrl = `${V2_ENDPOINT}/${FOOD_ENDPOINT}`;
 
 describe('Get single food item', () => {
   const makeSingleFoodItemRequest = (id: string = 'f1') => {

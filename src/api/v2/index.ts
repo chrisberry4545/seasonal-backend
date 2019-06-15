@@ -7,8 +7,8 @@ import {
 } from './food-api.v2';
 
 import {
-  seasonApis
-} from './seasons-api.v2';
+  seasonApi
+} from './season-api.v2';
 
 import {
   seasonWithFoodApi
@@ -20,16 +20,16 @@ import {
 
 import {
   V2_ENDPOINT,
-  SEASON_DATA_ENDPOINT,
-  FOOD_DATA_ENDPOINT,
+  SEASON_ENDPOINT,
   SEASON_WITH_FOOD_ENDPOINT,
-  SEASON_WITH_RECIPE_ENDPOINT
+  SEASON_WITH_RECIPE_ENDPOINT,
+  FOOD_ENDPOINT
 } from '../../config';
 
 export const v2Api = (router = Router()) => {
   router.use(
-    `/${V2_ENDPOINT}/${SEASON_DATA_ENDPOINT}`,
-    seasonApis()
+    `/${V2_ENDPOINT}/${SEASON_ENDPOINT}`,
+    seasonApi()
   );
   router.use(
     `/${V2_ENDPOINT}/${SEASON_WITH_FOOD_ENDPOINT}`,
@@ -40,7 +40,7 @@ export const v2Api = (router = Router()) => {
     seasonWithRecipesApi()
   ),
   router.use(
-    `/${V2_ENDPOINT}/${FOOD_DATA_ENDPOINT}`,
+    `/${V2_ENDPOINT}/${FOOD_ENDPOINT}`,
     foodApi()
   );
   return router;
