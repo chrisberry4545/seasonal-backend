@@ -39,6 +39,9 @@ Object {
       "id": "r1",
       "isVegan": true,
       "name": "recipe 1",
+      "primaryFood": Array [
+        "f1",
+      ],
     },
     Object {
       "id": "r2",
