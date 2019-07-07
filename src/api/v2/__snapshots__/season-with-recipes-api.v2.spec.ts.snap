@@ -31,6 +31,7 @@ exports[`Get single season with recipes Retrieves a single season 1`] = `
 Object {
   "id": "0",
   "name": "January",
+  "recipes": Array [],
 }
 `;
 

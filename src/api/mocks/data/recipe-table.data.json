@@ -8,6 +8,7 @@
   {
     "name": "other recipe",
     "id": "r2",
-    "isVegetarian": true
+    "isVegetarian": true,
+    "primaryFood": ["f2"]
   }
 ]

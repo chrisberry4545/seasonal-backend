@@ -66,7 +66,7 @@ describe('Get single season with recipes', () => {
 
   test('Does not populate a seasons recipes if they do not exist', async () => {
     const result = await makeSingleSeasonWithRecipesRequest();
-    expect(result.body.recipes).toBeUndefined();
+    expect(result.body.recipes).toHaveLength(0);
   });
 
   test('Populates a seasons recipes if they exist', async () => {
