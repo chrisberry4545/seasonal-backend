@@ -25,14 +25,7 @@ Array [
 ]
 `;
 
-exports[`Get single season with food Retrieves a single season 1`] = `
-Object {
-  "id": "0",
-  "name": "January",
-}
-`;
-
-exports[`Get single season with food Retrieves a single season with food data 1`] = `
+exports[`Get single season with food when the requested season has food data Retrieves a single season with food data 1`] = `
 Object {
   "food": Array [
     Object {
@@ -46,5 +39,12 @@ Object {
   ],
   "id": "1",
   "name": "February",
+}
+`;
+
+exports[`Get single season with food when the requested season has no food Retrieves a single season 1`] = `
+Object {
+  "id": "0",
+  "name": "January",
 }
 `;

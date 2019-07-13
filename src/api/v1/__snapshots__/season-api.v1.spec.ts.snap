@@ -13,14 +13,14 @@ Array [
 ]
 `;
 
-exports[`Get single season Retrieves a single season 1`] = `
+exports[`Get single season when a season has no recipes Retrieves a single season 1`] = `
 Object {
   "id": "0",
   "name": "January",
 }
 `;
 
-exports[`Get single season Retrieves a single season with food and recipe data 1`] = `
+exports[`Get single season when a season has recipes Retrieves a single season with food and recipe data 1`] = `
 Object {
   "food": Array [
     Object {

@@ -7,29 +7,28 @@ import {
   app
 } from '../../app';
 
-import supertest from 'supertest';
+import supertest, { Response } from 'supertest';
 import { V2_ENDPOINT, SEASON_ENDPOINT } from '../../config';
 
 const v2SeasonUrl = `${V2_ENDPOINT}/${SEASON_ENDPOINT}`;
 
 describe('Get all seasons', () => {
-  const makeAllSeasonRequest = () => {
-    return supertest(app).get(`/${v2SeasonUrl}`);
-  };
+  let response: Response;
 
-  test('Returns a status of 200', async () => {
-    const result = await makeAllSeasonRequest();
-    expect(result.status).toBe(200);
+  beforeAll(async () => {
+    response = await supertest(app).get(`/${v2SeasonUrl}`);
   });
 
-  test('Returns a full list of season data', async () => {
-    const result = await makeAllSeasonRequest();
-    expect(result.body).toMatchSnapshot();
+  test('Returns a status of 200', () => {
+    expect(response.status).toBe(200);
   });
-
-  test('Returns the name of the seasons', async () => {
-    const result = await makeAllSeasonRequest();
-    expect(result.body[0].name).toBe('January');
-    expect(result.body[1].name).toBe('February');
+  test('Returns a full list of season data', () => {
+    expect(response.body).toMatchSnapshot();
+  });
+  test('Returns the name of the first season', () => {
+    expect(response.body[0].name).toBe('January');
+  });
+  test('Returns the name of the second season', () => {
+    expect(response.body[1].name).toBe('February');
   });
 });

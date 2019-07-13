@@ -7,35 +7,33 @@ import {
   app
 } from '../../app';
 
-import supertest from 'supertest';
+import supertest, { Response } from 'supertest';
 import { V1_ENDPOINT, SEASON_WITH_FOOD_ENDPOINT } from '../../config';
 
 const v1SeasonWithFoodUrl = `${V1_ENDPOINT}/${SEASON_WITH_FOOD_ENDPOINT}`;
 
 describe('Get all seasons with food', () => {
-  const makeAllSeasonWithFoodRequest = () => {
-    return supertest(app).get(`/${v1SeasonWithFoodUrl}`);
-  };
-
-  test('Returns a status of 200', async () => {
-    const result = await makeAllSeasonWithFoodRequest();
-    expect(result.status).toBe(200);
+  let response: Response;
+  beforeAll(async () => {
+    response = await supertest(app).get(`/${v1SeasonWithFoodUrl}`);
   });
 
-  test('Returns a full list of season data', async () => {
-    const result = await makeAllSeasonWithFoodRequest();
-    expect(result.body).toMatchSnapshot();
+  test('Returns a status of 200', () => {
+    expect(response.status).toBe(200);
   });
-
-  test('Returns the name of the seasons', async () => {
-    const result = await makeAllSeasonWithFoodRequest();
-    expect(result.body[0].name).toBe('January');
-    expect(result.body[1].name).toBe('February');
+  test('Returns a full list of season data', () => {
+    expect(response.body).toMatchSnapshot();
   });
-
-  test('Populates the food in the seasons', async () => {
-    const result = await makeAllSeasonWithFoodRequest();
-    expect(result.body[0].food).toHaveLength(1);
-    expect(result.body[0].food[0].name).toBe('Beetroot');
+  test('Returns the name of the first season', () => {
+    expect(response.body[0].name).toBe('January');
+  });
+  test('Returns the name of the second season', () => {
+    expect(response.body[1].name).toBe('February');
+  });
+  test('Populates the food in the seasons', () => {
+    expect(response.body[0].food).toHaveLength(1);
+  });
+  test('Populates the food names in the seasons', () => {
+    expect(response.body[0].food[0].name).toBe('Beetroot');
   });
 });
