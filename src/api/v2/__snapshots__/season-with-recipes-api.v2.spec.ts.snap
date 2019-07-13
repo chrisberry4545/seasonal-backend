@@ -27,6 +27,53 @@ Array [
 ]
 `;
 
+exports[`Get single season with recipes when an isVegan filter is applied Retrieves the expected data 1`] = `
+Object {
+  "id": "1",
+  "name": "February",
+  "recipes": Array [
+    Object {
+      "id": "r1",
+      "isVegan": true,
+      "name": "recipe 1",
+    },
+  ],
+}
+`;
+
+exports[`Get single season with recipes when an isVegetarian filter is applied Retrieves the expected data 1`] = `
+Object {
+  "id": "1",
+  "name": "February",
+  "recipes": Array [
+    Object {
+      "id": "r2",
+      "isVegetarian": true,
+      "name": "other recipe",
+    },
+    Object {
+      "id": "r1",
+      "isVegan": true,
+      "name": "recipe 1",
+    },
+  ],
+}
+`;
+
+exports[`Get single season with recipes when both isVegan and isVegetarian filter is applied Retrieves the expected data 1`] = `
+Object {
+  "id": "1",
+  "name": "February",
+  "recipes": Array [
+    Object {
+      "id": "r1",
+      "isVegan": true,
+      "name": "recipe 1",
+    },
+  ],
+}
+`;
+
 exports[`Get single season with recipes when the season has no recipes Retrieves a single season 1`] = `
 Object {
   "id": "0",
@@ -44,6 +91,10 @@ Object {
       "id": "r2",
       "isVegetarian": true,
       "name": "other recipe",
+    },
+    Object {
+      "id": "r3",
+      "name": "other recipe 2",
     },
     Object {
       "id": "r1",

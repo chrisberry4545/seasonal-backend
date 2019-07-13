@@ -38,8 +38,17 @@ describe('Get all seasons with recipes', () => {
   });
 });
 
-const makeSingleSeasonWithRecipesRequest = (id: string = '0') => {
-  return supertest(app).get(`/${v2SeasonWithRecipesUrl}/${id}`);
+const makeSingleSeasonWithRecipesRequest = (
+  id: string = '0',
+  isVegetarian?: boolean,
+  isVegan?: boolean
+) => {
+  const query = [
+    isVegetarian && 'is-vegetarian=true',
+    isVegan && 'is-vegan=true'
+  ].filter(Boolean).join('&');
+  const queryString = query ? `?${query}` : '';
+  return supertest(app).get(`/${v2SeasonWithRecipesUrl}/${id}${queryString}`);
 };
 
 describe('Get single season with recipes', () => {
@@ -76,7 +85,7 @@ describe('Get single season with recipes', () => {
       expect(response.body.recipes[0].isVegetarian).toBe(true);
     });
     test('Populates a seasons recipes isVegan if true', () => {
-      expect(response.body.recipes[1].isVegan).toBe(true);
+      expect(response.body.recipes[2].isVegan).toBe(true);
     });
     test('Does not return any primaryFood on a recipe', () => {
       expect(response.body.recipes[0].primaryFood).toBeUndefined();
@@ -86,6 +95,54 @@ describe('Get single season with recipes', () => {
     });
     test('Does not return any food', () => {
       expect(response.body.food).toBeUndefined();
+    });
+  });
+
+  describe('when an isVegetarian filter is applied', () => {
+    beforeAll(async () => {
+      response = await makeSingleSeasonWithRecipesRequest('1', true);
+    });
+    test('Retrieves the expected data', () => {
+      expect(response.body).toMatchSnapshot();
+    });
+    test('Filters out non vegatarian recipes', () => {
+      expect(response.body.recipes).toHaveLength(2);
+    });
+    test('Returns vegetarian recipes', () => {
+      expect(response.body.recipes[0].isVegetarian).toBe(true);
+    });
+    test('Returns vegan recipes', () => {
+      expect(response.body.recipes[1].isVegan).toBe(true);
+    });
+  });
+
+  describe('when an isVegan filter is applied', () => {
+    beforeAll(async () => {
+      response = await makeSingleSeasonWithRecipesRequest('1', false, true);
+    });
+    test('Retrieves the expected data', () => {
+      expect(response.body).toMatchSnapshot();
+    });
+    test('Filters out non vegan recipes', () => {
+      expect(response.body.recipes).toHaveLength(1);
+    });
+    test('Returns only the vegan recipes', () => {
+      expect(response.body.recipes[0].isVegan).toBe(true);
+    });
+  });
+
+  describe('when both isVegan and isVegetarian filter is applied', () => {
+    beforeAll(async () => {
+      response = await makeSingleSeasonWithRecipesRequest('1', true, true);
+    });
+    test('Retrieves the expected data', () => {
+      expect(response.body).toMatchSnapshot();
+    });
+    test('Filters out non vegan recipes', () => {
+      expect(response.body.recipes).toHaveLength(1);
+    });
+    test('Returns only the vegan recipes', () => {
+      expect(response.body.recipes[0].isVegan).toBe(true);
     });
   });
 });

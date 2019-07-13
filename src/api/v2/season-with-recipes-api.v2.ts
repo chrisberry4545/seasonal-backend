@@ -5,7 +5,7 @@ import {
   } from 'express';
 import {
   fetchAllSeasonsWithRecipes,
-  fetchSeasonWithRecipes
+  fetchFilteredSeasonsWithRecipes
 } from '../../fetch-data';
 
 export const seasonWithRecipesApi = (router = Router()) => {
@@ -19,8 +19,14 @@ export const seasonWithRecipesApi = (router = Router()) => {
   });
   router.get('/:seasonIndex', async (req: Request, res: Response) => {
     const { seasonIndex } = req.params;
+    const isVegetarian = req.query['is-vegetarian'];
+    const isVegan = req.query['is-vegan'];
     try {
-      const result = await fetchSeasonWithRecipes(seasonIndex);
+      const result = await fetchFilteredSeasonsWithRecipes(
+        seasonIndex,
+        isVegetarian,
+        isVegan
+      );
       return res.json(result);
     } catch (err) {
       return res.status(500).send(err.message);

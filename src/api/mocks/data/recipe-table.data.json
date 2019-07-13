@@ -10,5 +10,10 @@
     "id": "r2",
     "isVegetarian": true,
     "primaryFood": ["f2"]
+  },
+  {
+    "name": "other recipe 2",
+    "id": "r3",
+    "primaryFood": ["f2"]
   }
 ]
