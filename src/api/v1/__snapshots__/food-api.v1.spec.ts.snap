@@ -35,6 +35,13 @@ Object {
         "f2",
       ],
     },
+    Object {
+      "id": "r3",
+      "name": "other recipe 2",
+      "primaryFood": Array [
+        "f2",
+      ],
+    },
   ],
 }
 `;

@@ -13,28 +13,13 @@ import {
 
 import { IHydratedSeason, IAirtableRecipe, IAirtableSeason, IBaseSeason } from '@chrisb-dev/seasonal-shared';
 import { fetchAllSeasonData } from './fetch-season-data';
+import { filterRecipesByDiet } from './filter-recipes-by-diet';
 
 const allSeasonsWithRecipesCache = new Cache<IHydratedSeason[]>();
 const allSeasonsWithRecipesCacheKey = 'season-with-recipes';
 
 const singleSeasonWithRecipeCache = new Cache<IHydratedSeason>();
 const singleSeasonWithRecipeCacheKey = 'single-season-with-recipes';
-
-export const fetchFilteredSeasonsWithRecipes = async (
-  seasonIndex: number,
-  isVegetarian: boolean,
-  isVegan: boolean
-): Promise<IHydratedSeason> => {
-  const result = await fetchSeasonWithRecipes(seasonIndex);
-  return {
-    ...result,
-    recipes: result.recipes && result.recipes.filter((recipe) => {
-      return isVegan ? recipe.isVegan
-        : isVegetarian ? recipe.isVegetarian || recipe.isVegan
-          : true;
-    })
-  };
-};
 
 export const fetchSeasonWithRecipes = cacheFunctionResponse(
   singleSeasonWithRecipeCache,
@@ -91,3 +76,15 @@ export const fetchAllSeasonsWithRecipes = cacheFunctionResponse(
     return hydratedResult;
   }
 );
+
+export const fetchFilteredSeasonsWithRecipes = async (
+  seasonIndex: number,
+  isVegetarian: boolean,
+  isVegan: boolean
+): Promise<IHydratedSeason> => {
+  const result = await fetchSeasonWithRecipes(seasonIndex);
+  return {
+    ...result,
+    recipes: filterRecipesByDiet(result.recipes, isVegetarian, isVegan)
+  };
+};

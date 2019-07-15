@@ -12,10 +12,23 @@ import { V2_ENDPOINT, FOOD_ENDPOINT } from '../../config';
 
 const v2FoodUrl = `${V2_ENDPOINT}/${FOOD_ENDPOINT}`;
 
+const makeSingleFoodRequest = async (
+  id: string = 'f1',
+  isVegetarian?: boolean,
+  isVegan?: boolean
+) => {
+  const query = [
+    isVegetarian && 'is-vegetarian=true',
+    isVegan && 'is-vegan=true'
+  ].filter(Boolean).join('&');
+  const queryString = query ? `?${query}` : '';
+  return supertest(app).get(`/${v2FoodUrl}/${id}${queryString}`);
+};
+
 describe('Get single food item', () => {
   let response: Response;
   beforeAll(async () => {
-    response = await supertest(app).get(`/${v2FoodUrl}/f1`);
+    response = await makeSingleFoodRequest();
   });
 
   test('Returns a status of 200', () => {
@@ -56,5 +69,46 @@ describe('Get single food item', () => {
   });
   test('Hydrates a foods secondaryFoodInRecipe names if they exist', () => {
     expect(response.body.secondaryFoodInRecipe[0].name).toBe('other recipe');
+  });
+
+  describe('When the isVegetarian filter is applied', () => {
+    beforeEach(async () => {
+      response = await makeSingleFoodRequest('f1', true);
+    });
+
+    test('Returns a status of 200', () => {
+      expect(response.status).toBe(200);
+    });
+    test('Filters out non vegetarian/vegan from the primaryFood recipes', () => {
+      expect(response.body.primaryFoodInRecipe).toHaveLength(1);
+    });
+    test('Filters out non vegetarian/vegan from the secondaryFood recipes', () => {
+      expect(response.body.primaryFoodInRecipe).toHaveLength(1);
+    });
+    test('Returns the vegan recipes', () => {
+      expect(response.body.primaryFoodInRecipe[0].isVegan).toBe(true);
+    });
+    test('Returns the vegetarian recipes', () => {
+      expect(response.body.secondaryFoodInRecipe[0].isVegetarian).toBe(true);
+    });
+  });
+
+  describe('When the isVegan filter is applied', () => {
+    beforeEach(async () => {
+      response = await makeSingleFoodRequest('f1', false, true);
+    });
+
+    test('Returns a status of 200', () => {
+      expect(response.status).toBe(200);
+    });
+    test('Filters out non vegan recipes', () => {
+      expect(response.body.primaryFoodInRecipe).toHaveLength(1);
+    });
+    test('Filters out vegetarian recipes', () => {
+      expect(response.body.secondaryFoodInRecipe).toHaveLength(0);
+    });
+    test('Returns only the vegan recipes', () => {
+      expect(response.body.primaryFoodInRecipe[0].isVegan).toBe(true);
+    });
   });
 });
