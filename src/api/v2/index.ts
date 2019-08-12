@@ -18,8 +18,11 @@ import {
   seasonWithRecipesApi
 } from './season-with-recipes-api.v2';
 
+import { countryApi } from './country-api.v2';
+
 import {
   V2_ENDPOINT,
+  COUNTRY_ENDPOINT,
   SEASON_ENDPOINT,
   SEASON_WITH_FOOD_ENDPOINT,
   SEASON_WITH_RECIPES_ENDPOINT,
@@ -27,6 +30,10 @@ import {
 } from '../../config';
 
 export const v2Api = (router = Router()) => {
+  router.use(
+    `/${V2_ENDPOINT}/${COUNTRY_ENDPOINT}`,
+    countryApi()
+  );
   router.use(
     `/${V2_ENDPOINT}/${SEASON_ENDPOINT}`,
     seasonApi()

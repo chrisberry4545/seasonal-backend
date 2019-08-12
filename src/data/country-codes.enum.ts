@@ -1,0 +1,5 @@
+export enum COUNTRY_CODES {
+  AUSTRALIA_WESTERN_AUSTRALIA = 'aus-wa',
+  AUSTRALIA_NEW_SOUTH_WALES = 'aus-nsw',
+  UNITED_KINGDOM = 'gbr'
+}
