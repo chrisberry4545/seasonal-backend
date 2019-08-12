@@ -5,7 +5,8 @@ import { sortBySeasonIndex } from './data-access-utils';
 import { getRecipesWithIds } from './recipe-data';
 
 export const hydrateFoodData = (
-  foodData: IAirtableFood
+  foodData: IAirtableFood,
+  countryCode?: string
 ): Promise<IHydratedFood> => {
   return hydrateAirtableData(
     foodData,
@@ -22,7 +23,8 @@ export const hydrateFoodData = (
         getIdFunction: getRecipesWithIds,
         propertyName: 'secondaryFoodInRecipe'
       }
-    ]
+    ],
+    countryCode
   ) as Promise<IHydratedFood>;
 };
 

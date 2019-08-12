@@ -9,8 +9,12 @@ import {
 
 import { IFood, IAirtableFood } from '@chrisb-dev/seasonal-shared';
 
-export const getFoodWithIds = (ids: string[] | string): Promise<IFood[]> => {
+export const getFoodWithIds = (
+  ids: string[] | string,
+  countryCode?: string
+): Promise<IFood[]> => {
   return retrieveAirtableData<IFood>({
+    countryCode,
     fields: [
       'name',
       'imageUrlSmall'
@@ -21,9 +25,11 @@ export const getFoodWithIds = (ids: string[] | string): Promise<IFood[]> => {
 };
 
 export const getFoodWithIdsAndSeasonData = (
-  ids: string[] | string
+  ids: string[] | string,
+  countryCode?: string
 ): Promise<IAirtableFood[]> => {
   return retrieveAirtableData<IAirtableFood>({
+    countryCode,
     fields: [
       'name',
       'imageUrlSmall',
@@ -36,8 +42,11 @@ export const getFoodWithIdsAndSeasonData = (
   });
 };
 
-export const getAllFoodData = (): Promise<IAirtableFood[]> => {
+export const getAllFoodData = (
+  countryCode?: string
+): Promise<IAirtableFood[]> => {
   return retrieveAirtableData<IAirtableFood>({
+    countryCode,
     fields: [
       'name',
       'imageUrlSmall',

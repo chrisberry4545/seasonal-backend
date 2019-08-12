@@ -14,8 +14,11 @@ import {
   IBaseSeason
 } from '@chrisb-dev/seasonal-shared';
 
-export const getAllSeasonData = (): Promise<IAirtableSeason[]> => {
+export const getAllSeasonData = (
+  countryCode?: string
+): Promise<IAirtableSeason[]> => {
   return retrieveAirtableData<IAirtableSeason>({
+    countryCode,
     fields: [
       'name'
     ],
@@ -28,9 +31,11 @@ export const getAllSeasonData = (): Promise<IAirtableSeason[]> => {
 };
 
 export const getSeasonDataWithIds = (
-  ids: string[] | string
+  ids: string[] | string,
+  countryCode?: string
 ): Promise<IBaseSeason[]> => {
   return retrieveAirtableData<IBaseSeason>({
+    countryCode,
     fields: [
       'name',
       'seasonIndex'
@@ -41,9 +46,11 @@ export const getSeasonDataWithIds = (
 };
 
 export const getSeasonDataBySeasonIndex = (
-  seasonIndex: number
+  seasonIndex: number,
+  countryCode?: string
 ): Promise<IAirtableSeason> => {
   return retrieveSingleAirtableRow<IAirtableSeason>({
+    countryCode,
     fields: [
       'name',
       'food',

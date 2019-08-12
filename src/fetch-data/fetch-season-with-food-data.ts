@@ -23,9 +23,11 @@ const singleSeasonWithFoodCacheKey = 'single-season-with-foodx';
 export const fetchSeasonWithFood = cacheFunctionResponse(
   singleSeasonWithFoodCache,
   singleSeasonWithFoodCacheKey,
-  async (seasonIndex: number): Promise<IHydratedSeason> => {
-    const result = await getSeasonDataBySeasonIndex(seasonIndex);
-    const hydratedResult = await hydrateSeasonDataWithFood(result);
+  async (
+    seasonIndex: number, countryCode?: string
+  ): Promise<IHydratedSeason> => {
+    const result = await getSeasonDataBySeasonIndex(seasonIndex, countryCode);
+    const hydratedResult = await hydrateSeasonDataWithFood(result, countryCode);
     const sortedResult = sortHydratedSeasonDataByFood(hydratedResult);
     const cleanedResult = cleanSeasonDataWithFood(sortedResult);
     return cleanedResult;
@@ -35,9 +37,9 @@ export const fetchSeasonWithFood = cacheFunctionResponse(
 export const fetchAllSeasonsWithFood = cacheFunctionResponse(
   allSeasonsWithFoodCache,
   allSeasonsWithFoodCacheKey,
-  async (): Promise<IHydratedSeason[]> => {
+  async (countryCode?: string): Promise<IHydratedSeason[]> => {
     const [allFoodData, allSeasonData] = await Promise.all([
-      getAllFoodData(), fetchAllSeasonData()
+      getAllFoodData(countryCode), fetchAllSeasonData(countryCode)
     ]);
     const hydratedResult: IHydratedSeason[] = allSeasonData.map((season) => ({
       ...season,

@@ -16,3 +16,7 @@ export const SEASON_WITH_RECIPES_ENDPOINT =
   process.env.SEASON_WITH_RECIPES_ENDPOINT || 'season-with-recipes';
 export const V1_ENDPOINT = process.env.V1_ENDPOINT || 'v1';
 export const V2_ENDPOINT = process.env.V2_ENDPOINT || 'v2';
+
+export const AUS_AIRTABLE_API_KEY = process.env.AUS_AIRTABLE_API_KEY;
+export const AUS_AIRTABLE_BASE_DB =
+  process.env.AUS_AIRTABLE_BASE_DB || 'app0d5LakVLeMLUL5';

@@ -8,4 +8,5 @@ export interface IAirtableRequestOptions<T> {
   fieldsToIncludeInOutput?: Array<keyof T>;
   filterByFormula?: string;
   sort?: Array<IAirtableSort<T>>;
+  countryCode?: string;
 }

@@ -1,4 +1,4 @@
-export * from './airtable';
+export * from './init-airtable';
 
 export * from './airtable-data-utils';
 

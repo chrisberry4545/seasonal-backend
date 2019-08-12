@@ -24,11 +24,14 @@ const singleSeasonWithRecipeCacheKey = 'single-season-with-recipes';
 export const fetchSeasonWithRecipes = cacheFunctionResponse(
   singleSeasonWithRecipeCache,
   singleSeasonWithRecipeCacheKey,
-  async (seasonIndex: number): Promise<IHydratedSeason> => {
+  async (seasonIndex: number, countryCode?: string): Promise<IHydratedSeason> => {
     const [
       season,
       recipes
-    ] = await Promise.all([getSeasonDataBySeasonIndex(seasonIndex), getAllRecipeData()]);
+    ] = await Promise.all([
+      getSeasonDataBySeasonIndex(seasonIndex, countryCode),
+      getAllRecipeData(countryCode)
+    ]);
     const getRecipesForSeason = (
       baseSeason: IAirtableSeason,
       allRecipeData: IAirtableRecipe[]
@@ -50,13 +53,15 @@ export const fetchSeasonWithRecipes = cacheFunctionResponse(
 export const fetchAllSeasonsWithRecipes = cacheFunctionResponse(
   allSeasonsWithRecipesCache,
   allSeasonsWithRecipesCacheKey,
-  async (): Promise<IHydratedSeason[]> => {
+  async (countryCode?: string): Promise<IHydratedSeason[]> => {
     const [
       allFoodData,
       allRecipeData,
       allSeasonData
     ] = await Promise.all([
-      getAllFoodData(), getAllRecipeData(), fetchAllSeasonData()
+      getAllFoodData(countryCode),
+      getAllRecipeData(countryCode),
+      fetchAllSeasonData(countryCode)
     ]);
     const getFoodIdsInSeason = (season: IBaseSeason) =>
       allFoodData
@@ -80,9 +85,10 @@ export const fetchAllSeasonsWithRecipes = cacheFunctionResponse(
 export const fetchFilteredSeasonsWithRecipes = async (
   seasonIndex: number,
   isVegetarian: boolean,
-  isVegan: boolean
+  isVegan: boolean,
+  countryCode?: string
 ): Promise<IHydratedSeason> => {
-  const result = await fetchSeasonWithRecipes(seasonIndex);
+  const result = await fetchSeasonWithRecipes(seasonIndex, countryCode);
   return {
     ...result,
     recipes: filterRecipesByDiet(result.recipes, isVegetarian, isVegan)

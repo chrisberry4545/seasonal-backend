@@ -15,5 +15,5 @@ const allSeasonDataCacheKey = 'seasons';
 export const fetchAllSeasonData = cacheFunctionResponse(
   allSeasonDataCache,
   allSeasonDataCacheKey,
-  async (): Promise<IBaseSeason[]> => await getAllSeasonData()
+  async (countryCode?: string): Promise<IBaseSeason[]> => await getAllSeasonData(countryCode)
 );

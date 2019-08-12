@@ -28,10 +28,11 @@ export const fetchFoodDataById = cacheFunctionResponse(
   singleFoodCache,
   singleFoodCacheKey,
   async (
-    foodId: string
+    foodId: string,
+    countryCode?: string
   ): Promise<IHydratedFood> => {
-    const result = await getFoodWithIdsAndSeasonData(foodId);
-    const hydratedResult = await hydrateFoodData(result[0]);
+    const result = await getFoodWithIdsAndSeasonData(foodId, countryCode);
+    const hydratedResult = await hydrateFoodData(result[0], countryCode);
     const sortedResult = sortHydratedFoodData(hydratedResult);
     return sortedResult;
   }
@@ -40,9 +41,10 @@ export const fetchFoodDataById = cacheFunctionResponse(
 export const fetchFoodDataWithFilteredRecipes = async (
   foodId: string,
   isVegetarian: boolean,
-  isVegan: boolean
+  isVegan: boolean,
+  countryCode?: string
 ): Promise<IHydratedFood> => {
-  const result = await fetchFoodDataById(foodId);
+  const result = await fetchFoodDataById(foodId, countryCode);
   return {
     ...result,
     primaryFoodInRecipe: filterRecipesByDiet(
