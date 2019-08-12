@@ -61,12 +61,13 @@ export const retrieveMatchingTableData = <
 >(
   dataToHydrate: MainType[],
   propertyName: keyof MainType,
-  asyncFunctionToGetIds: (ids: string[] | string) => Promise<SubType[]>
+  asyncFunctionToGetIds: (ids: string[] | string, countryCode?: string) => Promise<SubType[]>,
+  countryCode?: string
 ) => {
   const idsToGet = retrieveAirtableIds(
     dataToHydrate, propertyName
   );
-  return asyncFunctionToGetIds(idsToGet);
+  return asyncFunctionToGetIds(idsToGet, countryCode);
 };
 
 export const hydrateAirtableData = <
@@ -76,8 +77,9 @@ export const hydrateAirtableData = <
   dataToHydrate: MainType,
   propertyNamesAndGetIdFunctions: Array<{
     propertyName: SubTypeKey,
-    getIdFunction(ids: string[] | string): Promise<IAirtableBaseRecord[]>
-  }>
+    getIdFunction(ids: string[] | string, countryCode?: string): Promise<IAirtableBaseRecord[]>
+  }>,
+  countryCode?: string
 ): Promise<IAirtableBaseRecord | IAirtableBaseRecord[]> => {
   const dataAsArray: MainType[] = Array.isArray(dataToHydrate)
     ? dataToHydrate
@@ -89,7 +91,8 @@ export const hydrateAirtableData = <
     }) => retrieveMatchingTableData(
       dataAsArray,
       propertyName,
-      getIdFunction
+      getIdFunction,
+      countryCode
     ))
   ).then((matchingTableData) => {
     const hydratedArrayResult = propertyNamesAndGetIdFunctions

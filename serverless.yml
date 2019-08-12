@@ -79,3 +79,9 @@ functions:
             parameters:
               paths:
                 id: true
+  v2Country:
+    handler: index-serverless.handler
+    events:
+      - http:
+          path: ${file(.env.yml):V2_ENDPOINT}/${file(.env.yml):COUNTRY_ENDPOINT}
+          method: get

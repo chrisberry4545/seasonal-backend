@@ -14,5 +14,14 @@ export const SEASON_WITH_FOOD_ENDPOINT =
   process.env.SEASON_WITH_FOOD_ENDPOINT || 'season-with-food';
 export const SEASON_WITH_RECIPES_ENDPOINT =
   process.env.SEASON_WITH_RECIPES_ENDPOINT || 'season-with-recipes';
+export const COUNTRY_ENDPOINT =
+  process.env.COUNTRY_ENDPOINT || 'country';
 export const V1_ENDPOINT = process.env.V1_ENDPOINT || 'v1';
 export const V2_ENDPOINT = process.env.V2_ENDPOINT || 'v2';
+
+export const AUS_WA_AIRTABLE_API_KEY = process.env.AUS_WA_AIRTABLE_API_KEY;
+export const AUS_WA_AIRTABLE_BASE_DB =
+  process.env.AUS_WA_AIRTABLE_BASE_DB || 'app0d5LakVLeMLUL5';
+export const AUS_NSW_AIRTABLE_API_KEY = process.env.AUS_NSW_AIRTABLE_API_KEY;
+export const AUS_NSW_AIRTABLE_BASE_DB =
+  process.env.AUS_NSW_AIRTABLE_BASE_DB || 'app0d5LakVLeMLUL5';

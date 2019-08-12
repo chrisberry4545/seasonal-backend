@@ -14,31 +14,36 @@ import { IAirtableSeason, IHydratedSeason, IAirtableRecipe } from '@chrisb-dev/s
 import { sortByName } from './data-access-utils';
 
 export const hydrateSeasonDataWithFood = (
-  seasonData: IAirtableSeason
+  seasonData: IAirtableSeason,
+  countryCode?: string
 ): Promise<IHydratedSeason> => {
   return hydrateAirtableData(
     seasonData,
     [{
       getIdFunction: getFoodWithIds,
       propertyName: 'food'
-    }]
+    }],
+    countryCode
   ) as Promise<IHydratedSeason>;
 };
 
 export const hydrateSeasonDataWithRecipes = (
-  seasonData: IAirtableSeason
+  seasonData: IAirtableSeason,
+  countryCode?: string
 ): Promise<IHydratedSeason> => {
   return hydrateAirtableData(
     seasonData,
     [{
       getIdFunction: getRecipesWithIds,
       propertyName: 'recipes'
-    }]
+    }],
+    countryCode
   ) as Promise<IHydratedSeason>;
 };
 
 export const hydrateSeasonData = (
-  seasonData: IAirtableSeason
+  seasonData: IAirtableSeason,
+  countryCode?: string
 ): Promise<IHydratedSeason> => {
   return hydrateAirtableData(
     seasonData,
@@ -48,7 +53,8 @@ export const hydrateSeasonData = (
     }, {
       getIdFunction: getFoodWithIds,
       propertyName: 'food'
-    }]
+    }],
+    countryCode
   ) as Promise<IHydratedSeason>;
 };
 
