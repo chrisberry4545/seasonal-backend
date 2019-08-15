@@ -3,6 +3,7 @@ import { COUNTRY_CODES } from './country-codes.enum';
 
 export const COUNTRY_DATA: ICountry[] = [
   {
+    id: 'UK',
     name: 'United Kingdom',
     regions: [{
       code: COUNTRY_CODES.UNITED_KINGDOM,
@@ -10,6 +11,7 @@ export const COUNTRY_DATA: ICountry[] = [
     }]
   },
   {
+    id: 'AUS',
     name: 'Australia',
     regions: [{
       code: COUNTRY_CODES.AUSTRALIA_WESTERN_AUSTRALIA,

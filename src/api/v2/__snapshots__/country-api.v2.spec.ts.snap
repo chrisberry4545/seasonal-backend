@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get countries Retrieves a single food item 1`] = `
+Array [
+  Object {
+    "id": "UK",
+    "name": "United Kingdom",
+    "regions": Array [
+      Object {
+        "code": "gbr",
+        "name": "United Kingdom",
+      },
+    ],
+  },
+  Object {
+    "id": "AUS",
+    "name": "Australia",
+    "regions": Array [
+      Object {
+        "code": "aus-wa",
+        "name": "Western Australia",
+      },
+      Object {
+        "code": "aus-nsw",
+        "name": "Northern Territories",
+      },
+    ],
+  },
+]
+`;
