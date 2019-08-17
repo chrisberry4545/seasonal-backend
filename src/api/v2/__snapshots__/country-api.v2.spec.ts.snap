@@ -17,12 +17,12 @@ Array [
     "name": "Australia",
     "regions": Array [
       Object {
-        "code": "aus-wa",
-        "name": "Western Australia",
+        "code": "aus-perth",
+        "name": "Perth",
       },
       Object {
-        "code": "aus-nsw",
-        "name": "Northern Territories",
+        "code": "aus-sydney",
+        "name": "Sydney",
       },
     ],
   },

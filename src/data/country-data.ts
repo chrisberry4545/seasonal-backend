@@ -14,11 +14,11 @@ export const COUNTRY_DATA: ICountry[] = [
     id: 'AUS',
     name: 'Australia',
     regions: [{
-      code: COUNTRY_CODES.AUSTRALIA_WESTERN_AUSTRALIA,
-      name: 'Western Australia'
+      code: COUNTRY_CODES.AUSTRALIA_PERTH,
+      name: 'Perth'
     }, {
-      code: COUNTRY_CODES.AUSTRALIA_NEW_SOUTH_WALES,
-      name: 'Northern Territories'
+      code: COUNTRY_CODES.AUSTRALIA_SYDNEY,
+      name: 'Sydney'
     }]
   }
 ];
