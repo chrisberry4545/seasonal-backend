@@ -8,6 +8,10 @@ Array [
     "regions": Array [
       Object {
         "code": "gbr",
+        "latLng": Object {
+          "lat": 51.5074,
+          "lng": -0.118092,
+        },
         "name": "United Kingdom",
       },
     ],
@@ -17,11 +21,27 @@ Array [
     "name": "Australia",
     "regions": Array [
       Object {
+        "code": "aus-melbourne",
+        "latLng": Object {
+          "lat": -37.840935,
+          "lng": 144.946457,
+        },
+        "name": "Melbourne",
+      },
+      Object {
         "code": "aus-perth",
+        "latLng": Object {
+          "lat": -31.953512,
+          "lng": 115.857048,
+        },
         "name": "Perth",
       },
       Object {
         "code": "aus-sydney",
+        "latLng": Object {
+          "lat": -33.865143,
+          "lng": 151.2099,
+        },
         "name": "Sydney",
       },
     ],
