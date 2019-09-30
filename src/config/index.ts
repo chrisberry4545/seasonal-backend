@@ -19,7 +19,9 @@ export const COUNTRY_ENDPOINT =
 export const V1_ENDPOINT = process.env.V1_ENDPOINT || 'v1';
 export const V2_ENDPOINT = process.env.V2_ENDPOINT || 'v2';
 
+export const AUS_MELBOURNE_AIRTABLE_BASE_DB =
+  process.env.AUS_MELBOURNE_AIRTABLE_BASE_DB || 'apptDjA1yvKjsqBqk';
 export const AUS_PERTH_AIRTABLE_BASE_DB =
-  process.env.AUS_PERTH_AIRTABLE_BASE_DB || 'app0d5LakVLeMLUL5';
+  process.env.AUS_PERTH_AIRTABLE_BASE_DB || 'app6Wd4qasXlLrfU4';
 export const AUS_SYDNEY_AIRTABLE_BASE_DB =
-  process.env.AUS_SYDNEY_AIRTABLE_BASE_DB || 'app0d5LakVLeMLUL5';
+  process.env.AUS_SYDNEY_AIRTABLE_BASE_DB || 'appgLnTygZQEGPwar';
