@@ -3,16 +3,16 @@ import { COUNTRY_CODES } from './country-codes.enum';
 
 export const COUNTRY_DATA: ICountry[] = [
   {
-    id: 'UK',
-    name: 'United Kingdom',
+    id: 'GBR',
+    name: 'Great Britain & Ireland',
     regions: [
       {
-        code: COUNTRY_CODES.UNITED_KINGDOM,
+        code: COUNTRY_CODES.GREAT_BRITAIN,
         latLng: {
           lat: 51.5074,
           lng: -0.118092
         },
-        name: 'United Kingdom'
+        name: 'Great Britain & Ireland'
       }
     ]
   },

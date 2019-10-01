@@ -3,8 +3,8 @@
 exports[`Get countries Retrieves a single food item 1`] = `
 Array [
   Object {
-    "id": "UK",
-    "name": "United Kingdom",
+    "id": "GBR",
+    "name": "Great Britain & Ireland",
     "regions": Array [
       Object {
         "code": "gbr",
@@ -12,7 +12,7 @@ Array [
           "lat": 51.5074,
           "lng": -0.118092,
         },
-        "name": "United Kingdom",
+        "name": "Great Britain & Ireland",
       },
     ],
   },
