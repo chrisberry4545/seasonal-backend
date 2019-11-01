@@ -21,6 +21,14 @@ export const COUNTRY_DATA: ICountry[] = [
     name: 'Australia',
     regions: [
       {
+        code: COUNTRY_CODES.AUSTRALIA_BRISBANE,
+        latLng: {
+          lat: -27.4698,
+          lng: 153.0251
+        },
+        name: 'Brisbane'
+      },
+      {
         code: COUNTRY_CODES.AUSTRALIA_MELBOURNE,
         latLng: {
           lat: -37.840935,

@@ -21,6 +21,14 @@ Array [
     "name": "Australia",
     "regions": Array [
       Object {
+        "code": "aus-brisbane",
+        "latLng": Object {
+          "lat": -27.4698,
+          "lng": 153.0251,
+        },
+        "name": "Brisbane",
+      },
+      Object {
         "code": "aus-melbourne",
         "latLng": Object {
           "lat": -37.840935,

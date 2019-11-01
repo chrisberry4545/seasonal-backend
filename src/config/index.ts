@@ -25,3 +25,5 @@ export const AUS_PERTH_AIRTABLE_BASE_DB =
   process.env.AUS_PERTH_AIRTABLE_BASE_DB || 'app6Wd4qasXlLrfU4';
 export const AUS_SYDNEY_AIRTABLE_BASE_DB =
   process.env.AUS_SYDNEY_AIRTABLE_BASE_DB || 'appgLnTygZQEGPwar';
+export const AUS_BRISBANE_AIRTABLE_BASE_DB =
+  process.env.AUS_BRISBANE_AIRTABLE_BASE_DB || 'appQlsTjhDWOaoRBN';
