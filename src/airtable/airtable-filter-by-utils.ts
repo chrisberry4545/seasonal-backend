@@ -8,6 +8,11 @@ export const filterByIds = (ids: string[] | string): string => {
 export const filterByField = <T>(
   fieldName: keyof T,
   fieldValue: string | number
-): string => (
-  `${fieldName} = ${fieldValue}`
-);
+): string => {
+  const isString = typeof fieldValue === 'string';
+  return `${fieldName} = ${
+    isString
+      ? `"${fieldValue}"`
+      : fieldValue
+  }`;
+};

@@ -20,8 +20,7 @@ export const retrieveAirtableData = <T extends IAirtableBaseRecord>({
   fields,
   fieldsToIncludeInOutput,
   filterByFormula,
-  sort,
-  countryCode
+  sort
 }: IAirtableRequestOptions<T>): Promise<T[]> => {
   return new Promise((resolve, reject) => {
     let allRecords: T[] = [];
@@ -34,7 +33,7 @@ export const retrieveAirtableData = <T extends IAirtableBaseRecord>({
     if (sort) {
       airtableSelect.sort = sort;
     }
-    const airtable = initAirtable(countryCode);
+    const airtable = initAirtable();
     airtable(tableName).select(airtableSelect)
       .eachPage((records, fetchNextPage) => {
         allRecords = [
