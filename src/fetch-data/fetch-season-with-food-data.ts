@@ -3,7 +3,11 @@ import {
   sortHydratedSeasonDataByFood,
   getAllFoodData,
   hydrateSeasonDataWithFood,
-  cleanSeasonDataWithFood
+  cleanSeasonDataWithFood,
+  getRegionByCode,
+  getCountryById,
+  getRegionToSeasonAndFoodMapDataByIds,
+  getCountryToFoodNameDataMapById
 } from '../data-access';
 
 import {
@@ -26,11 +30,37 @@ export const fetchSeasonWithFood = cacheFunctionResponse(
   async (
     seasonIndex: number, countryCode?: string
   ): Promise<IHydratedSeason> => {
-    const result = await getSeasonDataBySeasonIndex(seasonIndex, countryCode);
-    const hydratedResult = await hydrateSeasonDataWithFood(result, countryCode);
-    const sortedResult = sortHydratedSeasonDataByFood(hydratedResult);
-    const cleanedResult = cleanSeasonDataWithFood(sortedResult);
-    return cleanedResult;
+    const season = await getSeasonDataBySeasonIndex(seasonIndex);
+    const region = await getRegionByCode(countryCode);
+    const [country, regionToSeasonMap] = await Promise.all([
+      getCountryById(region.country[0]),
+      getRegionToSeasonAndFoodMapDataByIds(
+        season.regionToSeasonAndFoodMap
+      )
+    ]);
+    const countryToFoodMap = country.countryToFoodNameMap
+      ? await getCountryToFoodNameDataMapById(country.countryToFoodNameMap)
+      : [];
+    const allFood = await getAllFoodData();
+    return {
+      ...season,
+      food: regionToSeasonMap.map((item) => {
+        const matchingFood = allFood.find((food) => (
+          food.id === item.food[0]
+        ));
+        const matchingFoodName = countryToFoodMap.find((food) => (
+          food.id === item.food[0]
+        ));
+        return {
+          ...matchingFood,
+          name: matchingFoodName
+            ? matchingFoodName.name
+            : item.name
+        };
+      }) as any,
+      recipes: undefined,
+      regionToSeasonAndFoodMap: undefined
+    };
   }
 );
 
@@ -38,9 +68,21 @@ export const fetchAllSeasonsWithFood = cacheFunctionResponse(
   allSeasonsWithFoodCache,
   allSeasonsWithFoodCacheKey,
   async (countryCode?: string): Promise<IHydratedSeason[]> => {
-    const [allFoodData, allSeasonData] = await Promise.all([
-      getAllFoodData(countryCode), fetchAllSeasonData(countryCode)
+    const [region, allFoodData, allSeasonData] = await Promise.all([
+      getRegionByCode(countryCode),
+      getAllFoodData(),
+      fetchAllSeasonData()
     ]);
+    const [
+      regionToSeasonAndFoodMap,
+      country
+    ] = await Promise.all([
+      getRegionToSeasonAndFoodMapDataByIds(region.regionToSeasonAndFoodMap),
+      getCountryById(region.country[0])
+    ]);
+    const countryToFoodMap = country.countryToFoodNameMap
+      ? await getCountryToFoodNameDataMapById(country.countryToFoodNameMap)
+      : [];
     const hydratedResult: IHydratedSeason[] = allSeasonData.map((season) => ({
       ...season,
       food: allFoodData.filter(({ seasons }) => (

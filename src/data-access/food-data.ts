@@ -42,15 +42,11 @@ export const getFoodWithIdsAndSeasonData = (
   });
 };
 
-export const getAllFoodData = (
-  countryCode?: string
-): Promise<IAirtableFood[]> => {
+export const getAllFoodData = (): Promise<IAirtableFood[]> => {
   return retrieveAirtableData<IAirtableFood>({
-    countryCode,
     fields: [
       'name',
-      'imageUrlSmall',
-      'seasons'
+      'imageUrlSmall'
     ],
     tableName: AIRTABLE_TABLES.FOOD
   });

@@ -9,16 +9,10 @@ import {
   filterByIds
 } from '../airtable';
 
-import {
-  IAirtableSeason,
-  IBaseSeason
-} from '@chrisb-dev/seasonal-shared';
+import { IDbSeason } from '../interfaces';
 
-export const getAllSeasonData = (
-  countryCode?: string
-): Promise<IAirtableSeason[]> => {
-  return retrieveAirtableData<IAirtableSeason>({
-    countryCode,
+export const getAllSeasonData = (): Promise<IDbSeason[]> => {
+  return retrieveAirtableData<IDbSeason>({
     fields: [
       'name'
     ],
@@ -33,8 +27,8 @@ export const getAllSeasonData = (
 export const getSeasonDataWithIds = (
   ids: string[] | string,
   countryCode?: string
-): Promise<IBaseSeason[]> => {
-  return retrieveAirtableData<IBaseSeason>({
+): Promise<IDbSeason[]> => {
+  return retrieveAirtableData<IDbSeason>({
     countryCode,
     fields: [
       'name',
@@ -46,18 +40,15 @@ export const getSeasonDataWithIds = (
 };
 
 export const getSeasonDataBySeasonIndex = (
-  seasonIndex: number,
-  countryCode?: string
-): Promise<IAirtableSeason> => {
-  return retrieveSingleAirtableRow<IAirtableSeason>({
-    countryCode,
+  seasonIndex: number
+): Promise<IDbSeason> => {
+  return retrieveSingleAirtableRow<IDbSeason>({
     fields: [
       'name',
-      'food',
-      'recipes'
+      'regionToSeasonAndFoodMap'
     ],
     filterByFormula:
-      filterByField<IAirtableSeason>('seasonIndex', seasonIndex),
+      filterByField<IDbSeason>('seasonIndex', seasonIndex),
     tableName: AIRTABLE_TABLES.SEASONS
   });
 };
