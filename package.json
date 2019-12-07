@@ -25,11 +25,15 @@
     "@chrisb-dev/seasonal-shared": "2.6.0",
     "@types/express": "^4.17.0",
     "@types/helmet": "0.0.43",
+    "@types/pg": "^7.11.2",
+    "@types/winston": "^2.4.4",
     "airtable": "^0.6.0",
     "express": "^4.17.1",
     "helmet": "^3.18.0",
+    "pg": "^7.12.1",
     "serverless-http": "^2.0.2",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.1",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@chrisb-dev/tslint": "^1.0.1",

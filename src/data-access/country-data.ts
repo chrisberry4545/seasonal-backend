@@ -1,34 +1,30 @@
-import {
-  AIRTABLE_TABLES
-} from '../const';
+import { queryPostgres } from '../postgres';
+import { ICountry } from '@chrisb-dev/seasonal-shared';
 
-import {
-  filterByIds,
-  retrieveSingleAirtableRow,
-  retrieveAirtableData
-} from '../airtable';
+const countryQuery = `
+  SELECT
+    countries.id,
+    countries.name,
+    (
+      SELECT json_agg(
+        json_build_object(
+          'code' , regions.code,
+          'name', regions.name,
+          'latLng', json_build_object(
+            'lat', regions.lat,
+            'lng', regions.lng
+          )
+        )
+        ORDER BY regions.name
+      ) AS regions
+      FROM regions
+      WHERE regions.country_id = countries.id
+    )
+  FROM countries
+  ORDER BY countries.name
+`;
 
-import { IDbCountry } from '../interfaces';
-
-const countryFields: Array<keyof IDbCountry> = [
-  'name',
-  'regions',
-  'countryToFoodNameMap'
-];
-
-export const getCountryById = (
-  id: string
-): Promise<IDbCountry> => {
-  return retrieveSingleAirtableRow<IDbCountry>({
-    fields: countryFields,
-    filterByFormula: filterByIds(id),
-    tableName: AIRTABLE_TABLES.COUNTRIES
-  });
-};
-
-export const getAllCountries = (): Promise<IDbCountry[]> => {
-  return retrieveAirtableData<IDbCountry>({
-    fields: countryFields,
-    tableName: AIRTABLE_TABLES.COUNTRIES
-  });
+export const getAllCountries = async (): Promise<ICountry[]> => {
+  const result = await queryPostgres<ICountry>(countryQuery);
+  return result.rows;
 };

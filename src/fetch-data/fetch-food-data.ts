@@ -2,7 +2,8 @@ import {
   getFoodWithIdsAndSeasonData,
   hydrateFoodData,
   sortHydratedFoodData,
-  getAllFoodData
+  getAllFoodData,
+  getFoodDetailsData
 } from '../data-access';
 
 import {
@@ -27,15 +28,12 @@ export const fetchAllFoodData = cacheFunctionResponse(
 export const fetchFoodDataById = cacheFunctionResponse(
   singleFoodCache,
   singleFoodCacheKey,
-  async (
+  (
     foodId: string,
     countryCode?: string
-  ): Promise<IHydratedFood> => {
-    const result = await getFoodWithIdsAndSeasonData(foodId, countryCode);
-    const hydratedResult = await hydrateFoodData(result[0], countryCode);
-    const sortedResult = sortHydratedFoodData(hydratedResult);
-    return sortedResult;
-  }
+  ): Promise<IHydratedFood> => getFoodDetailsData(
+    foodId, countryCode || ''
+  )
 );
 
 export const fetchFoodDataWithFilteredRecipes = async (

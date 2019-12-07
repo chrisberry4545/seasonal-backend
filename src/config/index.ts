@@ -18,6 +18,7 @@ export const COUNTRY_ENDPOINT =
   process.env.COUNTRY_ENDPOINT || 'country';
 export const V1_ENDPOINT = process.env.V1_ENDPOINT || 'v1';
 export const V2_ENDPOINT = process.env.V2_ENDPOINT || 'v2';
+export const DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
 export const AUS_MELBOURNE_AIRTABLE_BASE_DB =
   process.env.AUS_MELBOURNE_AIRTABLE_BASE_DB || 'apptDjA1yvKjsqBqk';
