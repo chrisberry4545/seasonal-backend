@@ -6,13 +6,13 @@ import {
   Cache,
   cacheFunctionResponse
 } from '../cache';
-import { IDbSeason } from '../interfaces';
+import { IBaseSeason } from '@chrisb-dev/seasonal-shared';
 
-const allSeasonDataCache = new Cache<IDbSeason[]>();
+const allSeasonDataCache = new Cache<IBaseSeason[]>();
 const allSeasonDataCacheKey = 'seasons';
 
 export const fetchAllSeasonData = cacheFunctionResponse(
   allSeasonDataCache,
   allSeasonDataCacheKey,
-  async (): Promise<IDbSeason[]> => await getAllSeasonData()
+  async (): Promise<IBaseSeason[]> => await getAllSeasonData()
 );

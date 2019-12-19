@@ -12,9 +12,10 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "dev": "concurrently \"npm run copy-env\" \"tsc -w\" \"nodemon dist/index-dev.js\"",
-    "build": "tsc && npm run copy-env",
+    "dev": "concurrently \"npm run copy-env\" \"npm run copy-sql\" \"tsc -w\" \"nodemon dist/index-dev.js\"",
+    "build": "tsc && npm run copy-env && npm run copy-sql",
     "copy-env": "cp .env.yml dist/.env.yml",
+    "copy-sql": "cp -r src/sql/ dist/src/sql/",
     "move-dist-to-top-level": "cp -r ./dist/* ./",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "jest"
@@ -26,11 +27,13 @@
     "@types/express": "^4.17.0",
     "@types/helmet": "0.0.43",
     "@types/pg": "^7.11.2",
+    "@types/promise-fs": "^2.1.0",
     "@types/winston": "^2.4.4",
     "airtable": "^0.6.0",
     "express": "^4.17.1",
     "helmet": "^3.18.0",
     "pg": "^7.12.1",
+    "promise-fs": "^2.1.1",
     "serverless-http": "^2.0.2",
     "typescript": "^3.5.1",
     "winston": "^3.2.1"

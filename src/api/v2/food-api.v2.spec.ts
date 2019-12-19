@@ -1,9 +1,4 @@
 import {
-  airtableMockSetup
-} from '../mocks';
-airtableMockSetup();
-
-import {
   app
 } from '../../app';
 

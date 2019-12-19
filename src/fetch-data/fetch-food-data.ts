@@ -1,8 +1,4 @@
 import {
-  getFoodWithIdsAndSeasonData,
-  hydrateFoodData,
-  sortHydratedFoodData,
-  getAllFoodData,
   getFoodDetailsData
 } from '../data-access';
 
@@ -10,29 +6,21 @@ import {
   Cache, cacheFunctionResponse
 } from '../cache';
 
-import { IHydratedFood, IFood } from '@chrisb-dev/seasonal-shared';
+import { IHydratedFood } from '@chrisb-dev/seasonal-shared';
 import { filterRecipesByDiet } from './filter-recipes-by-diet';
-
-const allFoodCache = new Cache<IFood[]>();
-const allFoodItemCacheKey = 'food';
+import { DEFAULT_COUNTRY_ID } from '../config';
 
 const singleFoodCache = new Cache<IHydratedFood>();
 const singleFoodCacheKey = 'single-food';
-
-export const fetchAllFoodData = cacheFunctionResponse(
-  allFoodCache,
-  allFoodItemCacheKey,
-  async (): Promise<IFood[]> => await getAllFoodData()
-);
 
 export const fetchFoodDataById = cacheFunctionResponse(
   singleFoodCache,
   singleFoodCacheKey,
   (
     foodId: string,
-    countryCode?: string
+    countryCode: string = DEFAULT_COUNTRY_ID
   ): Promise<IHydratedFood> => getFoodDetailsData(
-    foodId, countryCode || ''
+    foodId, countryCode
   )
 );
 

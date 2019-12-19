@@ -8,35 +8,6 @@ provider:
   environment: ${file(.env.yml)}
 
 functions:
-  seasonData:
-    handler: index-serverless.handler
-    events:
-      - http:
-          path: ${file(.env.yml):V1_ENDPOINT}/${file(.env.yml):SEASON_DATA_ENDPOINT}
-          method: get
-      - http:
-          path: ${file(.env.yml):V1_ENDPOINT}/${file(.env.yml):SEASON_DATA_ENDPOINT}/{id}
-          method: get
-          request:
-            parameters:
-              paths:
-                id: true
-  foodData:
-    handler: index-serverless.handler
-    events:
-      - http:
-          path: ${file(.env.yml):V1_ENDPOINT}/${file(.env.yml):FOOD_DATA_ENDPOINT}/{id}
-          method: get
-          request:
-            parameters:
-              paths:
-                id: true
-  seasonsWithFood:
-    handler: index-serverless.handler
-    events:
-      - http:
-          path: ${file(.env.yml):V1_ENDPOINT}/${file(.env.yml):SEASON_WITH_FOOD_ENDPOINT}
-          method: get
   v2Food:
     handler: index-serverless.handler
     events:
