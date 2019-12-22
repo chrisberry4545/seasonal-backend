@@ -1,6 +1,24 @@
+WITH
+	food_name_mappings AS (
+		SELECT
+      country_to_food_name_map.name
+		FROM country_to_food_name_map
+		WHERE
+		  country_to_food_name_map.country_id = ANY(
+			  SELECT
+				  regions.country_id
+			  FROM
+				  regions
+			  WHERE
+				  regions.code = $1
+			)
+		AND
+		  country_to_food_name_map.food_id = $2
+	)
+
 SELECT
   food.id,
-  food.name,
+  COALESCE((SELECT name FROM food_name_mappings), food.name) AS name,
   food.image_url_small,
   (
     SELECT json_agg(
