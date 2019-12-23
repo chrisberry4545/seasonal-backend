@@ -1,32 +1,21 @@
 WITH
   selected_season AS (
-    SELECT seasons.id FROM seasons
+	  SELECT * FROM seasons
     WHERE
-      $2::int IS NULL
+      $2::int is NULL
     OR
       seasons.season_index = $2
   ),
-  primary_food_recipes AS (
-    SELECT unnest(food.primary_food_in_recipe_ids)
-      FROM food
-      WHERE
-      food.id = ANY(
-        SELECT food_id FROM public.region_to_season_food_map
-        WHERE season_id = ANY(SELECT selected_season.id FROM selected_season)
-        AND region_id = $1
+  food_in_season AS (
+  	SELECT array_agg(region_to_season_food_map.food_id)
+    FROM region_to_season_food_map
+	  WHERE
+      region_to_season_food_map.season_id = ANY(
+        SELECT selected_season.id
+        FROM selected_season
       )
-    GROUP BY food.id
-  ),
-  secondary_food_recipes AS (
-    SELECT unnest(food.secondary_food_in_recipe_ids)
-    FROM food
-    WHERE
-      food.id = ANY(
-        SELECT food_id from public.region_to_season_food_map
-        WHERE season_id = ANY(SELECT selected_season.id FROM selected_season)
-        AND region_id = $1
-      )
-    GROUP BY food.id
+	  AND
+      region_to_season_food_map.region_id = $1
   )
 
 SELECT
@@ -36,9 +25,9 @@ SELECT
   recipes
 FROM (
 	SELECT
-    seasons.id,
-    seasons.season_index,
-    seasons.name,
+    selected_season.id,
+    selected_season.season_index,
+    selected_season.name,
   (
     SELECT json_agg(
       json_build_object(
@@ -51,13 +40,7 @@ FROM (
     ) AS recipes
     FROM recipes
     WHERE
-      recipes.id = ANY(SELECT primary_food_recipes.unnest FROM primary_food_recipes)
-    OR
-      recipes.id = ANY(SELECT secondary_food_recipes.unnest FROM secondary_food_recipes)
+      recipes.primary_food_in_recipe_ids <@ (SELECT array_agg FROM food_in_season)
   )
-  FROM seasons
-  WHERE
-    $2::int is NULL
-  OR
-    seasons.season_index = $2
+  FROM selected_season
 ) seasons;
