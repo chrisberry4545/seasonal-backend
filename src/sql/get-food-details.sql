@@ -33,21 +33,9 @@ SELECT
     ) AS primary_food_in_recipe
     FROM recipes
     WHERE
-      recipes.id = ANY(food.primary_food_in_recipe_ids)
-  ),
-  (
-    SELECT json_agg(
-      json_build_object(
-        'id' , recipes.id,
-        'name', recipes.name,
-        'linkUrl', recipes.link_url,
-        'imageUrlSmall', recipes.image_url_small,
-        'isVegan', recipes.is_vegan,
-        'isVegetarian', recipes.is_vegetarian
-      )
-    ) AS secondary_food_in_recipe
-    FROM recipes
-    WHERE recipes.id = ANY(food.secondary_food_in_recipe_ids)
+      food.id = ANY(recipes.primary_food_in_recipe_ids)
+    OR
+      food.id = ANY(recipes.secondary_food_in_recipe_ids)
   ),
   (
     SELECT json_agg(
