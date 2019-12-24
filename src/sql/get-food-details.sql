@@ -1,20 +1,29 @@
 WITH
+  current_country AS (
+    SELECT
+      regions.country_id
+    FROM
+      regions
+    WHERE
+      regions.code = $1
+  ),
 	food_name_mappings AS (
 		SELECT
       country_to_food_name_map.name
 		FROM country_to_food_name_map
 		WHERE
-		  country_to_food_name_map.country_id = ANY(
-			  SELECT
-				  regions.country_id
-			  FROM
-				  regions
-			  WHERE
-				  regions.code = $1
-			)
+		  country_to_food_name_map.country_id = ANY(SELECT country_id FROM current_country)
 		AND
 		  country_to_food_name_map.food_id = $2
-	)
+	),
+  recipe_name_mapping AS (
+    SELECT
+      country_to_recipe_name_map.name,
+      country_to_recipe_name_map.recipe_id
+    FROM country_to_recipe_name_map
+    WHERE
+      country_to_recipe_name_map.country_id = ANY(SELECT country_id FROM current_country)
+  )
 
 SELECT
   food.id,
@@ -24,7 +33,14 @@ SELECT
     SELECT json_agg(
       json_build_object(
         'id' , recipes.id,
-        'name', recipes.name,
+        'name', COALESCE(
+            (
+              SELECT name
+              FROM recipe_name_mapping
+              WHERE recipe_name_mapping.recipe_id = recipes.id
+            ),
+            recipes.name
+        ),
         'linkUrl', recipes.link_url,
         'imageUrlSmall', recipes.image_url_small,
         'isVegan', recipes.is_vegan,

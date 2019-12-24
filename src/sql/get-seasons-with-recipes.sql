@@ -1,4 +1,12 @@
 WITH
+  current_country AS (
+    SELECT
+      regions.country_id
+    FROM
+      regions
+    WHERE
+      regions.code = $1
+  ),
   selected_season AS (
 	  SELECT * FROM seasons
     WHERE
@@ -16,6 +24,14 @@ WITH
       )
 	  AND
       region_to_season_food_map.region_id = $1
+  ),
+  recipe_name_mapping AS (
+    SELECT
+      country_to_recipe_name_map.name,
+      country_to_recipe_name_map.recipe_id
+    FROM country_to_recipe_name_map
+    WHERE
+      country_to_recipe_name_map.country_id = ANY(SELECT country_id FROM current_country)
   )
 
 SELECT
@@ -32,7 +48,14 @@ FROM (
     SELECT json_agg(
       json_build_object(
         'id', recipes.id,
-        'name' , recipes.name,
+        'name', COALESCE(
+            (
+              SELECT name
+              FROM recipe_name_mapping
+              WHERE recipe_name_mapping.recipe_id = recipes.id
+            ),
+            recipes.name
+        ),
         'linkUrl' , recipes.link_url,
         'imageUrlSmall', recipes.image_url_small,
         'isVegan', recipes.is_vegan,
