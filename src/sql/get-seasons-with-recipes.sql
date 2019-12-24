@@ -34,7 +34,9 @@ FROM (
         'id', recipes.id,
         'name' , recipes.name,
         'linkUrl' , recipes.link_url,
-        'imageUrlSmall', recipes.image_url_small
+        'imageUrlSmall', recipes.image_url_small,
+        'isVegan', recipes.is_vegan,
+        'isVegetarian', recipes.is_vegetarian
       )
       ORDER BY recipes.name
     ) AS recipes
