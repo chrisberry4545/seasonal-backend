@@ -14,8 +14,8 @@
     "start": "npm run dev",
     "dev": "concurrently \"npm run copy-env\" \"npm run copy-sql\" \"tsc -w\" \"nodemon dist/index-dev.js\"",
     "build": "tsc && npm run copy-env && npm run copy-sql",
-    "copy-env": "cp .env.yml dist/.env.yml",
-    "copy-sql": "cp -r src/sql/ dist/src/sql/",
+    "copy-env": "mkdir -p dist && cp .env.yml dist/.env.yml",
+    "copy-sql": "mkdir -p dist/src && cp -r src/sql/ dist/src/sql/",
     "move-dist-to-top-level": "cp -r ./dist/* ./",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "jest"
@@ -44,11 +44,12 @@
     "@types/supertest": "^2.0.7",
     "concurrently": "^4.1.0",
     "env-yaml": "^0.1.2",
-    "nodemon": "^1.19.1",
     "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
     "pre-commit": "^1.2.2",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
+    "ts-node": "^8.5.4",
     "tslint": "^5.17.0"
   },
   "jest": {
