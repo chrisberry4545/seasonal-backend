@@ -34,6 +34,12 @@ VALUES
     'dd9ba012-8f8e-48af-9775-0139374dd94c',
     '41bcbb3a-5599-4f0c-8da9-3144cc5be6de'
   ),
+  (
+    '053c46cd-584e-46c5-a70d-a39b9ded3cca',
+    '9061f3aa-3bf3-4c12-b6f9-4a8d1ea88601',
+    '053c46cd-584e-46c5-a70d-b79b9ded3cca',
+    '41bcbb3a-5599-4f0c-8da9-3144cc5be6de'
+  ),
   -- Sydney
   (
     '2214870d-ccb5-479d-b6d0-2d7fb5692857',

@@ -22,4 +22,9 @@ VALUES
     'eec0b2bb-4fbd-46df-b905-8d2ee2fb991a',
     1,
     'February'
+  ),
+  (
+    'f4812071-b0e2-4255-8ccf-e38768ad0c3c',
+    2,
+    'March'
   );

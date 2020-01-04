@@ -39,9 +39,9 @@ VALUES
     'https://apple-and-cheese.com/image',
     true,
     false,
-    'Apple & Cheese',
+    'Apple, Cheese & Onion',
     ARRAY['dd9ba012-8f8e-48af-9775-0139374dd94c']::uuid[],
-    ARRAY[]::uuid[]
+    ARRAY['d1df368e-6ed1-4a50-bb7d-6163c15df1d3']::uuid[]
   ),
   (
     '053c46cd-584e-46c5-a70d-b79b9ded3cca',
@@ -49,7 +49,7 @@ VALUES
     'https://apple-beetroot-and-cheese.com/image',
     false,
     false,
-    'Apple Beetroot & Meat',
+    'Apple, Beetroot & Meat',
     ARRAY['dd9ba012-8f8e-48af-9775-0139374dd94c', 'c6f78568-fe23-47e4-8e65-55934199a39f']::uuid[],
     ARRAY[]::uuid[]
   );

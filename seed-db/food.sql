@@ -30,4 +30,11 @@ VALUES
     ARRAY[]::uuid[],
     'https://apple.com',
     'apple description'
+  ),
+  (
+    'd1df368e-6ed1-4a50-bb7d-6163c15df1d3',
+    'Onion',
+    ARRAY[]::uuid[],
+    'https://onion.com',
+    'onion description'
   );

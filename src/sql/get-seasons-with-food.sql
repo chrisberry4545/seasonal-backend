@@ -25,26 +25,29 @@ SELECT
       seasons.season_index,
       seasons.name,
       (
-        SELECT json_agg(
-          json_build_object(
-            'id', food.id,
-            'name' , COALESCE(
+        SELECT COALESCE(
+          json_agg(
+            json_build_object(
+              'id', food.id,
+              'name' , COALESCE(
+                (
+                  SELECT food_name_mappings.name FROM food_name_mappings
+                  WHERE food_name_mappings.food_id = food.id
+                ),
+                food.name
+              ),
+              'imageUrlSmall', food.image_url_small
+            )
+            ORDER BY COALESCE(
               (
                 SELECT food_name_mappings.name FROM food_name_mappings
                 WHERE food_name_mappings.food_id = food.id
               ),
               food.name
-            ),
-            'imageUrlSmall', food.image_url_small
-          )
-          ORDER BY COALESCE(
-            (
-              SELECT food_name_mappings.name FROM food_name_mappings
-              WHERE food_name_mappings.food_id = food.id
-            ),
-            food.name
-          )
-        ) AS food
+            )
+          ),
+          '[]'::json
+         ) AS food
         FROM food
         LEFT JOIN region_to_season_food_map
         ON

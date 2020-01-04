@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "dev": "concurrently \"npm run copy-env\" \"npm run copy-sql\" \"tsc -w\" \"nodemon dist/index-dev.js\"",
+    "dev": "npm run copy-env && npm run copy-sql && tsc-watch --onSuccess \"node ./dist/index-dev.js\"",
     "build": "tsc && npm run copy-env && npm run copy-sql",
     "copy-env": "mkdir -p dist && cp .env.yml dist/.env.yml",
     "copy-sql": "mkdir -p dist/src && cp -r src/sql/ dist/src/sql/",
@@ -42,14 +42,13 @@
     "@chrisb-dev/tslint": "^1.0.1",
     "@types/jest": "^24.0.13",
     "@types/supertest": "^2.0.7",
-    "concurrently": "^4.1.0",
     "env-yaml": "^0.1.2",
     "jest": "^24.8.0",
-    "nodemon": "^1.19.1",
     "pre-commit": "^1.2.2",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.5.4",
+    "tsc-watch": "^4.0.0",
     "tslint": "^5.17.0"
   },
   "jest": {

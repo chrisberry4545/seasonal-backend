@@ -45,23 +45,26 @@ FROM (
     selected_season.season_index,
     selected_season.name,
   (
-    SELECT json_agg(
-      json_build_object(
-        'id', recipes.id,
-        'name', COALESCE(
-            (
-              SELECT name
-              FROM recipe_name_mapping
-              WHERE recipe_name_mapping.recipe_id = recipes.id
-            ),
-            recipes.name
-        ),
-        'linkUrl' , recipes.link_url,
-        'imageUrlSmall', recipes.image_url_small,
-        'isVegan', recipes.is_vegan,
-        'isVegetarian', recipes.is_vegetarian
-      )
-      ORDER BY recipes.name
+    SELECT COALESCE(
+      json_agg(
+        json_build_object(
+          'id', recipes.id,
+          'name', COALESCE(
+              (
+                SELECT name
+                FROM recipe_name_mapping
+                WHERE recipe_name_mapping.recipe_id = recipes.id
+              ),
+              recipes.name
+          ),
+          'linkUrl' , recipes.link_url,
+          'imageUrlSmall', recipes.image_url_small,
+          'isVegan', recipes.is_vegan,
+          'isVegetarian', recipes.is_vegetarian
+        )
+        ORDER BY recipes.name
+      ),
+      '[]'::json
     ) AS recipes
     FROM recipes
     WHERE

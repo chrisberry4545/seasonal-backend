@@ -1,5 +1,17 @@
 version: "3"
 services:
+
+  postgres:
+    image: postgres:11.6
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: db
+    volumes:
+      - "./seed-db:/docker-entrypoint-initdb.d/"
+
   app:
     build: .
     depends_on:
@@ -12,14 +24,18 @@ services:
     ports:
       - "5200:3000"
     command: npm run dev
-
-  postgres:
-    image: postgres:11.6
-    ports:
-      - "35432:5432"
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: db
     volumes:
-      - "./seed-db:/docker-entrypoint-initdb.d/"
+      - .:/usr/app/
+      - /usr/app/node_modules
+
+  app-test:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DB_CONNECTION_STRING: postgres://user:pass@postgres:5432/db
+      DEFAULT_COUNTRY_ID: 9061f3aa-3bf3-4c12-b6f9-4a8d1ea88601
+    command: npm run test -- --watchAll
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules

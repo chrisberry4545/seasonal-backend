@@ -30,36 +30,65 @@ SELECT
   COALESCE((SELECT name FROM food_name_mappings), food.name) AS name,
   food.image_url_small,
   (
-    SELECT json_agg(
-      json_build_object(
-        'id' , recipes.id,
-        'name', COALESCE(
-            (
-              SELECT name
-              FROM recipe_name_mapping
-              WHERE recipe_name_mapping.recipe_id = recipes.id
-            ),
-            recipes.name
-        ),
-        'linkUrl', recipes.link_url,
-        'imageUrlSmall', recipes.image_url_small,
-        'isVegan', recipes.is_vegan,
-        'isVegetarian', recipes.is_vegetarian
-      )
+    SELECT COALESCE(
+      json_agg(
+        json_build_object(
+          'id' , recipes.id,
+          'name', COALESCE(
+              (
+                SELECT name
+                FROM recipe_name_mapping
+                WHERE recipe_name_mapping.recipe_id = recipes.id
+              ),
+              recipes.name
+          ),
+          'linkUrl', recipes.link_url,
+          'imageUrlSmall', recipes.image_url_small,
+          'isVegan', recipes.is_vegan,
+          'isVegetarian', recipes.is_vegetarian
+        )
+      ),
+      '[]'::json
     ) AS primary_food_in_recipe
     FROM recipes
     WHERE
       food.id = ANY(recipes.primary_food_in_recipe_ids)
-    OR
+  ),
+  (
+    SELECT COALESCE(
+      json_agg(
+        json_build_object(
+          'id' , recipes.id,
+          'name', COALESCE(
+              (
+                SELECT name
+                FROM recipe_name_mapping
+                WHERE recipe_name_mapping.recipe_id = recipes.id
+              ),
+              recipes.name
+          ),
+          'linkUrl', recipes.link_url,
+          'imageUrlSmall', recipes.image_url_small,
+          'isVegan', recipes.is_vegan,
+          'isVegetarian', recipes.is_vegetarian
+        )
+      ),
+      '[]'::json
+    ) AS secondary_food_in_recipe
+    FROM recipes
+    WHERE
       food.id = ANY(recipes.secondary_food_in_recipe_ids)
   ),
   (
-    SELECT json_agg(
-      json_build_object(
-        'id', seasons.id,
-        'name', seasons.name,
-        'seasonIndex', seasons.season_index
-      )
+    SELECT COALESCE(
+      json_agg(
+        json_build_object(
+          'id', seasons.id,
+          'name', seasons.name,
+          'seasonIndex', seasons.season_index
+        )
+      ),
+      '[]'::json
     ) as seasons
     FROM seasons
     LEFT JOIN region_to_season_food_map
