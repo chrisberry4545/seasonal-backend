@@ -11,7 +11,9 @@ jobs:
 
       - run:
           name: Run tests
-          command: npm test
+          command: |
+            set -e
+            docker-compose run app npm test
 
   deploy:
     docker:

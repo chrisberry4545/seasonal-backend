@@ -22,6 +22,8 @@ describe('Get countries', () => {
     ], [] as IRegion[]);
   });
 
+  test('fail', () => expect(true).toBe(false));
+
   test('Returns a status of 200', () => {
     expect(response.status).toBe(200);
   });

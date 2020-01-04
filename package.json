@@ -18,7 +18,7 @@
     "copy-sql": "mkdir -p dist/src && cp -r src/sql/ dist/src/sql/",
     "move-dist-to-top-level": "cp -r ./dist/* ./",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "test": "docker-compose up app-test"
+    "test": "jest"
   },
   "author": "Chris Berry <chrisberry4545@googlemail.com> (http://chrisbdev.com)",
   "license": "ISC",
