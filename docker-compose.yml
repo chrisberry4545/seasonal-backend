@@ -20,7 +20,7 @@ services:
       DB_CONNECTION_STRING: postgres://user:pass@postgres:5432/db
       NODE_ENV: development
       PORT: 3000
-      DEFAULT_COUNTRY_ID: 9061f3aa-3bf3-4c12-b6f9-4a8d1ea88601
+      DEFAULT_COUNTRY_ID: gbr
     ports:
       - "5200:3000"
     command: npm run dev
@@ -34,7 +34,7 @@ services:
       - postgres
     environment:
       DB_CONNECTION_STRING: postgres://user:pass@postgres:5432/db
-      DEFAULT_COUNTRY_ID: 9061f3aa-3bf3-4c12-b6f9-4a8d1ea88601
+      DEFAULT_COUNTRY_ID: gbr
     command: npm run test -- --watchAll
     volumes:
       - .:/usr/app/

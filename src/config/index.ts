@@ -13,4 +13,4 @@ export const V2_ENDPOINT = process.env.V2_ENDPOINT || 'v2';
 export const DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
 export const DEFAULT_COUNTRY_ID =
-  process.env.DEFAULT_COUNTRY_ID || '83533319-9b7a-4c79-9261-4c02bc6b4d0d';
+  process.env.DEFAULT_COUNTRY_ID || 'gbr';

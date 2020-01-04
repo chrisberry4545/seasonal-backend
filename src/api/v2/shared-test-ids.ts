@@ -5,7 +5,7 @@ export const SEASON_INDEX_FEBRUARY = '1';
 export const SEASON_ID_MARCH = 'f4812071-b0e2-4255-8ccf-e38768ad0c3c';
 export const SEASON_INDEX_MARCH = '2';
 
-export const REGION_ID_SYDNEY = '2d8bafc4-5b7a-4212-a8a8-cfdccdd27cce';
+export const REGION_ID_SYDNEY = 'aus-sydney';
 
 export const RECIPES_ID_PICKLED_BEETROOT = '0f7fb18e-ac1d-4023-b315-91ca7e29ce4a';
 export const RECIPES_ID_APPLE_CHEESE_AND_ONION = 'fefc209f-ddaf-465d-941f-fe3fefa6b931';

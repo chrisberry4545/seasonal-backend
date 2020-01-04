@@ -7,7 +7,7 @@ Array [
     "name": "Australia",
     "regions": Array [
       Object {
-        "code": "2d8bafc4-5b7a-4212-a8a8-cfdccdd27cce",
+        "code": "aus-sydney",
         "latLng": Object {
           "lat": -50,
           "lng": -50,
@@ -21,7 +21,7 @@ Array [
     "name": "UK",
     "regions": Array [
       Object {
-        "code": "9061f3aa-3bf3-4c12-b6f9-4a8d1ea88601",
+        "code": "gbr",
         "latLng": Object {
           "lat": 50,
           "lng": 50,
