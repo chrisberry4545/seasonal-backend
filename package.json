@@ -14,10 +14,10 @@
     "start": "npm run dev",
     "dev": "npm run copy-sql && tsc-watch --onSuccess \"node ./dist/index-dev.js\"",
     "build": "tsc && npm run copy-env && npm run copy-sql",
-    "copy-env": "mkdir -p ./dist && cp .env.yml ./dist/.env.yml",
-    "copy-sql": "mkdir -p ./dist/src && cp -r ./src/sql/ ./dist/src/sql/",
+    "copy-env": "mkdir -p dist && cp .env.yml dist/.env.yml",
+    "copy-sql": "mkdir -p dist/src && cp -r src/sql/ dist/src/sql/",
     "move-dist-to-top-level": "cp -r ./dist/* ./",
-    "lint": "tslint -c tslint.json './src/**/*.ts'",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "jest"
   },
   "author": "Chris Berry <chrisberry4545@googlemail.com> (http://chrisbdev.com)",

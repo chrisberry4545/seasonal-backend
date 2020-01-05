@@ -24,7 +24,7 @@ services:
       DEFAULT_COUNTRY_ID: gbr
     ports:
       - "5200:3000"
-    command: ls
+    command: npm run dev
     volumes:
       - ./src:/usr/app/src/
       - ./dist:/usr/app/dist/
