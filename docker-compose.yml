@@ -25,9 +25,9 @@ services:
     ports:
       - "5200:3000"
     command: npm run dev
-    volumes:
-      - ./src:/usr/app/src/
-      - ./dist:/usr/app/dist/
+    # volumes:
+    #   - ./src:/usr/app/src/
+    #   - ./dist:/usr/app/dist/
 
   # app-test:
   #   build: .
