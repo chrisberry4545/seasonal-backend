@@ -15,7 +15,11 @@ jobs:
 
       - run:
           name: Run tests
-          command: docker-compose up app-test-ci
+          command: docker-compose exec app-test-ci npm run test
+
+      - run:
+          name: Docker down
+          command: docker-compose down
 
   deploy:
     docker:

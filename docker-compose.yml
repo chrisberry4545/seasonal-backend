@@ -36,7 +36,7 @@ services:
     environment:
       DB_CONNECTION_STRING: postgres://user:pass@postgres:5432/db
       DEFAULT_COUNTRY_ID: gbr
-    command: npm run test
+    command: npm run ci
 
   # app-test:
   #   build: .
