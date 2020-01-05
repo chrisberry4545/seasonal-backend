@@ -10,6 +10,10 @@ jobs:
       - setup_remote_docker
 
       - run:
+          name: Docker up
+          command: docker-compose up -d
+
+      - run:
           name: Run tests
           command: docker-compose up app-test-ci
 
