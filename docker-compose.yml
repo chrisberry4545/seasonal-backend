@@ -30,6 +30,7 @@ services:
 
   app-test-ci:
     build: .
+    container_name: app-test-ci
     depends_on:
       - postgres
     environment:

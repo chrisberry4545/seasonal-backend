@@ -12,7 +12,8 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "dev": "npm run copy-sql && tsc-watch --onSuccess \"node ./dist/index-dev.js\"",
+    "dev": "npm run copy-env && npm run copy-sql && tsc-watch --onSuccess \"node ./dist/index-dev.js\"",
+    "ci": "npm run copy-sql && tsc",
     "build": "tsc && npm run copy-env && npm run copy-sql",
     "copy-env": "mkdir -p dist && cp .env.yml dist/.env.yml",
     "copy-sql": "mkdir -p dist/src && cp -r ./src/sql/ ./dist/src/sql/",

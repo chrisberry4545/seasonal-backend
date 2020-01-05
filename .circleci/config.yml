@@ -38,10 +38,6 @@ jobs:
             npm install
 
       - run:
-          name: Run tests
-          command: npm test
-
-      - run:
           name: Build dist version
           command: |
             npm run build
