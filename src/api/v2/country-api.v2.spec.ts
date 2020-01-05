@@ -22,7 +22,11 @@ describe('Get countries', () => {
     ], [] as IRegion[]);
   });
 
-  test('fail', () => expect(true).toBe(false));
+  test('fail', () => {
+    // tslint:disable-next-line
+    console.log('database url', process.env.DB_CONNECTION_STRING);
+    expect(true).toBe(false);
+  });
 
   test('Returns a status of 200', () => {
     expect(response.status).toBe(200);
