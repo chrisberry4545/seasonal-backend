@@ -10,10 +10,12 @@ jobs:
       - setup_remote_docker
 
       - run:
+          name: Run Docker
+          command: docker-compose run app npm test
+
+      - run:
           name: Run tests
-          command: |
-            set -e
-            docker-compose run app
+          command: docker exec app npm run test
 
   deploy:
     docker:
