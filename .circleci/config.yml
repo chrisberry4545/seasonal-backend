@@ -11,7 +11,9 @@ jobs:
 
       - run:
           name: Output dir
-          command: echo $PWD
+          command: |
+            echo $PWD
+            ls
       - run:
           name: Run Docker
           command: docker-compose run app npm test
