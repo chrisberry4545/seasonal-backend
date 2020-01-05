@@ -10,6 +10,9 @@ jobs:
       - setup_remote_docker
 
       - run:
+          name: Output dir
+          command: echo $PWD
+      - run:
           name: Run Docker
           command: docker-compose run app npm test
 
