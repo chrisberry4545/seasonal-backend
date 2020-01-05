@@ -16,7 +16,7 @@ jobs:
             ls
       - run:
           name: Run Docker
-          command: docker-compose run app npm test
+          command: docker-compose up
 
       - run:
           name: Run tests
