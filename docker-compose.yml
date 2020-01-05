@@ -25,9 +25,19 @@ services:
     ports:
       - "5200:3000"
     command: npm run dev
-    # volumes:
-    #   - ./src:/usr/app/src/
-    #   - ./dist:/usr/app/dist/
+    volumes:
+      - ./src:/usr/app/src/
+      - ./dist:/usr/app/dist/
+
+  app-test-ci:
+    build: .
+    container_name: app-test-ci
+    depends_on:
+      - postgres
+    environment:
+      DB_CONNECTION_STRING: postgres://user:pass@postgres:5432/db
+      DEFAULT_COUNTRY_ID: gbr
+    command: npm run test
 
   # app-test:
   #   build: .

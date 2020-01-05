@@ -10,15 +10,6 @@ jobs:
       - setup_remote_docker
 
       - run:
-          name: Output dir
-          command: |
-            echo $PWD
-            ls
-            echo src
-            ls src
-
-
-      - run:
           name: Copy env config
           command: |
             cp .env-ci.yml .env.yml
@@ -29,7 +20,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: docker exec app npm run test
+          command: docker exec app-test-ci npm run test
 
   deploy:
     docker:
