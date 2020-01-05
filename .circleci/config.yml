@@ -15,12 +15,8 @@ jobs:
             cp .env-ci.yml .env.yml
 
       - run:
-          name: Run Docker
-          command: docker-compose up
-
-      - run:
           name: Run tests
-          command: docker exec app-test-ci npm run test
+          command: docker-compose up app-test-ci
 
   deploy:
     docker:

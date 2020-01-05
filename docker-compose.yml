@@ -14,7 +14,6 @@ services:
 
   app:
     build: .
-    container_name: app
     depends_on:
       - postgres
     environment:
@@ -31,7 +30,6 @@ services:
 
   app-test-ci:
     build: .
-    container_name: app-test-ci
     depends_on:
       - postgres
     environment:
