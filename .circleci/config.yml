@@ -14,6 +14,12 @@ jobs:
           command: |
             echo $PWD
             ls
+
+      - run:
+          name: Copy env config
+          command: |
+            cp .env-ci.yml .env.yml
+
       - run:
           name: Run Docker
           command: docker-compose up
