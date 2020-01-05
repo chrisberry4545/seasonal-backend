@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 services:
 
   postgres:
@@ -26,8 +26,8 @@ services:
       - "5200:3000"
     command: npm run dev
     volumes:
-      - .:/usr/app/
-      - /usr/app/node_modules
+      - ./src:/usr/app/src/
+      - ./dist:/usr/app/dist/
 
   # app-test:
   #   build: .
