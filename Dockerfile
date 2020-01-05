@@ -1,6 +1,5 @@
 FROM node:10.15.0-alpine
 
 WORKDIR /usr/app
-COPY package*.json ./
+COPY . .
 RUN npm install
-COPY /home/circleci/project .
