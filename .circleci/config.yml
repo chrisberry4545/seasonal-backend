@@ -11,7 +11,7 @@ jobs:
 
       - run:
           name: Docker up
-          command: docker-compose up -d
+          command: docker-compose up -d --force-em --no-cache
 
       - run:
           name: Run tests
