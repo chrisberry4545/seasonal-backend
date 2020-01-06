@@ -10,8 +10,12 @@ jobs:
       - setup_remote_docker
 
       - run:
+          name: Docker down
+          command: docker-compose down
+
+      - run:
           name: Docker up
-          command: docker-compose up -d --force-em --no-cache
+          command: docker-compose up -d
 
       - run:
           name: Run tests
