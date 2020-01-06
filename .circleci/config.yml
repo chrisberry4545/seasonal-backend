@@ -1,6 +1,7 @@
 version: 2
 jobs:
   test:
+
     docker:
       - image: circleci/node:8.10
 
@@ -10,20 +11,8 @@ jobs:
       - setup_remote_docker
 
       - run:
-          name: Docker up
-          command: docker-compose up -d
-
-      - run:
-          name: Wait for DB Initalization
-          command: sleep 10
-
-      - run:
           name: Run tests
-          command: docker-compose exec app-test-ci npm run test
-
-      - run:
-          name: Docker down
-          command: docker-compose down
+          command: ./run-tests.sh
 
   deploy:
     docker:
