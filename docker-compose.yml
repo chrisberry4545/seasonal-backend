@@ -3,6 +3,7 @@ services:
 
   postgres:
     image: postgres:11.6
+    container_name: postgres
     ports:
       - "35432:5432"
     environment:
