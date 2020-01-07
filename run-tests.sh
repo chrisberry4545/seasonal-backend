@@ -2,6 +2,7 @@
 
 set +e
 
+docker-compose down
 docker-compose up -d
 echo "Starting tests..."
 sleep 10
