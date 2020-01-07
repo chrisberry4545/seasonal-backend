@@ -4,7 +4,7 @@ set +e
 
 docker-compose up -d
 echo "Starting tests..."
-sleep 2
+sleep 10
 run_result=$(docker exec app npm run test)
 
 if [ "$run_result" = "1" ]; then
