@@ -12,8 +12,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: docker-compose run --rm app-test-ci
-          # command: ./run-tests.sh
+          command: ./run-tests.sh
 
   deploy:
     docker:
