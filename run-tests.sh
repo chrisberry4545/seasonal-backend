@@ -1,17 +1,24 @@
 #! /bin/bash
 
-set +e
+#set +e
 
 docker-compose down
-docker-compose up -d
+#docker-compose up -d
 echo "Starting tests..."
 sleep 10
-run_result=$(docker exec app-test-ci npm run test)
 
-if [ "$run_result" = "1" ]; then
-  echo "Tests failed"
-  exit 1;
+#docker-compose run app-test-ci npm run test
+run_result=$(docker-compose run --rm app-test-ci)
+
+echo "Run result:"
+echo $run_result
+
+#docker-compose down
+
+if [ "$run_result" = "0" ]; then
+  echo "Tests passed"
+  exit 0;
 fi
 
-docker-compose down
-echo "Tests passed"
+echo "Tests Failed"
+exit 1;
