@@ -14,6 +14,10 @@ jobs:
           name: Run tests
           command: ./run-tests.sh
 
+      - run:
+          name: Logs
+          command: docker-compose logs
+
   deploy:
     docker:
       - image: circleci/node:8.10

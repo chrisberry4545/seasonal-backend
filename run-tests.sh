@@ -1,13 +1,12 @@
 #! /bin/bash
 
-docker-compose up --build
 docker-compose down
 echo "Starting tests..."
 
 docker-compose run --rm app-test-ci
 status=$?
 
-docker-compose down
+#docker-compose down
 
 if [ "$status" = "0" ]; then
   echo "Tests passed"
