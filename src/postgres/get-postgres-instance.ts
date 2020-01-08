@@ -2,7 +2,7 @@ import { DB_CONNECTION_STRING } from '../config';
 import { Pool, PoolClient } from 'pg';
 import { errorLogger } from '../logger/logger';
 
-const pool = new Pool({
+export const pool = new Pool({
   connectionString: DB_CONNECTION_STRING
 });
 

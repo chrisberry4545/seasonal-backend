@@ -14,4 +14,4 @@ if [ "$status" = "0" ]; then
 fi
 
 echo "Tests Failed"
-exit 0;
+exit 1;
