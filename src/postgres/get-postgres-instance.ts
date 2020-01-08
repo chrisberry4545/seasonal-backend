@@ -1,17 +1,15 @@
 import { DB_CONNECTION_STRING } from '../config';
-import { Client } from 'pg';
+import { Pool, PoolClient } from 'pg';
 import { errorLogger } from '../logger/logger';
 
-let client: Client;
+const pool = new Pool({
+  connectionString: DB_CONNECTION_STRING
+});
 
-export const getPostgresInstance = async () => {
-  if (!client) {
-    try  {
-      client = new Client(DB_CONNECTION_STRING);
-      await client.connect();
-    } catch (e) {
-      errorLogger.log('error', 'Failed to connect to database...', e);
-    }
-  }
-  return client;
-};
+pool.on('error', (err) => {
+  errorLogger.log('error', 'Unexpected error on idle client', err);
+  process.exit(-1);
+});
+
+export const getPostgresInstance = async (): Promise<PoolClient> =>
+  pool.connect();

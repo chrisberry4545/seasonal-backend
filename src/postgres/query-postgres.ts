@@ -16,6 +16,7 @@ export const queryPostgres = async <T>(
 ): Promise<QueryResult<T>> => {
   const db = await getPostgresInstance();
   const result = await db.query<T>({ text: query, values });
+  db.release();
   return {
     ...result,
     rows: result.rows && result.rows.map(objectCasingToCamelCase)
