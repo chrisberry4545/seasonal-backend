@@ -11,17 +11,11 @@ services:
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: db
 
-  app-dev:
+  app-test:
     build: .
     depends_on:
       - postgres
     environment:
       DB_CONNECTION_STRING: postgres://user:pass@postgres:5432/db
-      NODE_ENV: development
-      PORT: 3000
       DEFAULT_COUNTRY_ID: gbr
-    ports:
-      - "5200:3000"
-    command: npm run dev
-    volumes:
-      - ./:/usr/app
+    command: npm run test

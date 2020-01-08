@@ -1,12 +1,12 @@
 #! /bin/bash
 
-docker-compose down
+docker-compose -f ./docker-compose.test.yml down
 echo "Starting tests..."
 
-docker-compose run --rm app-test
+docker-compose -f ./docker-compose.test.yml run --rm app-test
 status=$?
 
-docker-compose down
+docker-compose -f ./docker-compose.test.yml down
 
 if [ "$status" = "0" ]; then
   echo "Tests passed"
