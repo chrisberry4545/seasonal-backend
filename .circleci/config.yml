@@ -57,6 +57,7 @@ workflows:
   version: 2
   ci:
     jobs:
+      - test
       - deploy:
           requires:
             - test
@@ -64,4 +65,3 @@ workflows:
             branches:
               only:
                 - master
-      - test
