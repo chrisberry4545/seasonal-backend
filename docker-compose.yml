@@ -2,7 +2,7 @@ version: "3.3"
 services:
 
   postgres:
-    image: postgres:11.6
+    build: ./db
     container_name: postgres
     ports:
       - "35432:5432"
@@ -10,25 +10,25 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: db
-    volumes:
-      - "./seed-db:/docker-entrypoint-initdb.d/"
+    # volumes:
+    #   - "./seed-db:/docker-entrypoint-initdb.d/"
 
-  app:
-    build: .
-    container_name: app
-    depends_on:
-      - postgres
-    environment:
-      DB_CONNECTION_STRING: postgres://user:pass@postgres:5432/db
-      NODE_ENV: development
-      PORT: 3000
-      DEFAULT_COUNTRY_ID: gbr
-    ports:
-      - "5200:3000"
-    command: npm run dev
-    volumes:
-      - ./src:/usr/app/src/
-      - ./dist:/usr/app/dist/
+  # app:
+  #   build: .
+  #   container_name: app
+  #   depends_on:
+  #     - postgres
+  #   environment:
+  #     DB_CONNECTION_STRING: postgres://user:pass@postgres:5432/db
+  #     NODE_ENV: development
+  #     PORT: 3000
+  #     DEFAULT_COUNTRY_ID: gbr
+  #   ports:
+  #     - "5200:3000"
+  #   command: npm run dev
+  #   volumes:
+  #     - ./src:/usr/app/src/
+  #     - ./dist:/usr/app/dist/
 
   app-test-ci:
     build: .
