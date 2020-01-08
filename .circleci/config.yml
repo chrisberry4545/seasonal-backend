@@ -1,5 +1,19 @@
 version: 2
 jobs:
+  test:
+
+    docker:
+      - image: circleci/node:8.10
+
+    steps:
+      - checkout
+
+      - setup_remote_docker
+
+      - run:
+          name: Run tests
+          command: ./tests/run-functional-tests.sh
+
   deploy:
     docker:
       - image: circleci/node:8.10
@@ -25,10 +39,6 @@ jobs:
             npm install
 
       - run:
-          name: Run tests
-          command: npm test
-
-      - run:
           name: Build dist version
           command: |
             npm run build
@@ -47,7 +57,10 @@ workflows:
   version: 2
   ci:
     jobs:
+      - test
       - deploy:
+          requires:
+            - test
           filters:
             branches:
               only:
