@@ -12,7 +12,6 @@ import {
   SEASON_INDEX_MARCH
 } from './shared-test-ids';
 import { IHydratedSeason } from '@chrisb-dev/seasonal-shared';
-import { pool } from '../../postgres';
 
 const v2SeasonWithRecipesUrl = `${V2_ENDPOINT}/${SEASON_WITH_RECIPES_ENDPOINT}`;
 
@@ -26,7 +25,6 @@ describe('Get all seasons with recipes', () => {
     seasonJanuary = seasonData.find((season) => season.id === SEASON_ID_JANUARY);
     seasonFebruary = seasonData.find((season) => season.id === SEASON_ID_FEBRUARY);
   });
-  afterAll(async () => await pool.end());
 
   test('Returns a status of 200', () => {
     expect(response.status).toBe(200);
@@ -67,7 +65,6 @@ const makeSingleSeasonWithRecipesRequest = (
 
 describe('Get single season with recipes', () => {
   let response: Response;
-  afterAll(async () => await pool.end());
 
   describe('when the season has no recipes', () => {
     beforeAll(async () => {

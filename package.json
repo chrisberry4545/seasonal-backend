@@ -57,6 +57,9 @@
     "tslint": "^5.17.0"
   },
   "jest": {
+    "setupFilesAfterEnv" : [
+      "./tests/setup.ts"
+    ],
     "moduleFileExtensions": [
       "js",
       "jsx",
