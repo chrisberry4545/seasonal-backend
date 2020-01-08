@@ -15,23 +15,11 @@ describe('Get countries', () => {
   beforeEach(async () => {
     response = await supertest(app).get(`/${countryUrl}`);
     result = response.body;
-    // tslint:disable-next-line
-    console.log('got result', result);
     allRegions = result.reduce((regions, country) => [
       ...regions,
       ...country.regions
     ], [] as IRegion[]);
   });
-
-  // afterAll(() => {
-
-  // });
-
-  // test('fail', () => {
-  //   // tslint:disable-next-line
-  //   console.log('database url', process.env.DB_CONNECTION_STRING);
-  //   expect(true).toBe(false);
-  // });
 
   test('Returns a status of 200', () => {
     expect(response.status).toBe(200);

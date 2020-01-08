@@ -12,11 +12,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: ./run-tests.sh
-
-      - run:
-          name: Logs
-          command: docker-compose logs postgres
+          command: ./run-functional-tests.sh
 
   deploy:
     docker:
@@ -62,6 +58,8 @@ workflows:
   ci:
     jobs:
       - deploy:
+          requires:
+            - test
           filters:
             branches:
               only:
