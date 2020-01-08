@@ -12,7 +12,7 @@ describe('Get countries', () => {
   let response: Response;
   let result: ICountry[];
   let allRegions: IRegion[];
-  beforeEach(async () => {
+  beforeAll(async () => {
     response = await supertest(app).get(`/${countryUrl}`);
     result = response.body;
     allRegions = result.reduce((regions, country) => [
