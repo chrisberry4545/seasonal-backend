@@ -1,0 +1,27 @@
+version: "3.3"
+services:
+
+  postgres:
+    build: ./db
+    container_name: postgres
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: db
+
+  app-dev:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DB_CONNECTION_STRING: postgres://user:pass@postgres:5432/db
+      NODE_ENV: development
+      PORT: 3000
+      DEFAULT_COUNTRY_ID: gbr
+    ports:
+      - "5200:3000"
+    command: npm run dev
+    volumes:
+      - ./:/usr/app

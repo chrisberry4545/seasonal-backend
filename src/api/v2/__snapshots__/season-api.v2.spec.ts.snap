@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get all seasons Returns a full list of season data 1`] = `
+Array [
+  Object {
+    "id": "41bcbb3a-5599-4f0c-8da9-3144cc5be6de",
+    "name": "January",
+    "seasonIndex": "0",
+  },
+  Object {
+    "id": "eec0b2bb-4fbd-46df-b905-8d2ee2fb991a",
+    "name": "February",
+    "seasonIndex": "1",
+  },
+  Object {
+    "id": "f4812071-b0e2-4255-8ccf-e38768ad0c3c",
+    "name": "March",
+    "seasonIndex": "2",
+  },
+]
+`;

@@ -1,21 +1,29 @@
 import {
-  airtableMockSetup
-} from '../mocks';
-airtableMockSetup();
-
-import {
   app
 } from '../../app';
 
 import supertest, { Response } from 'supertest';
 import { V2_ENDPOINT, SEASON_WITH_RECIPES_ENDPOINT } from '../../config';
+import {
+  SEASON_ID_JANUARY,
+  SEASON_ID_FEBRUARY,
+  SEASON_INDEX_JANUARY,
+  SEASON_INDEX_FEBRUARY,
+  SEASON_INDEX_MARCH
+} from './shared-test-ids';
+import { IHydratedSeason } from '@chrisb-dev/seasonal-shared';
 
 const v2SeasonWithRecipesUrl = `${V2_ENDPOINT}/${SEASON_WITH_RECIPES_ENDPOINT}`;
 
 describe('Get all seasons with recipes', () => {
   let response: Response;
+  let seasonJanuary: IHydratedSeason | undefined;
+  let seasonFebruary: IHydratedSeason | undefined;
   beforeEach(async () => {
     response = await supertest(app).get(`/${v2SeasonWithRecipesUrl}`);
+    const seasonData: IHydratedSeason[] = response.body;
+    seasonJanuary = seasonData.find((season) => season.id === SEASON_ID_JANUARY);
+    seasonFebruary = seasonData.find((season) => season.id === SEASON_ID_FEBRUARY);
   });
 
   test('Returns a status of 200', () => {
@@ -25,21 +33,25 @@ describe('Get all seasons with recipes', () => {
     expect(response.body).toMatchSnapshot();
   });
   test('Returns the name of the first season', () => {
-    expect(response.body[0].name).toBe('January');
+    expect(seasonJanuary && seasonJanuary.name).toBe('January');
   });
   test('Returns the name of the second season', () => {
-    expect(response.body[1].name).toBe('February');
+    expect(seasonFebruary && seasonFebruary.name).toBe('February');
   });
   test('Populates the recipes in the seasons', () => {
-    expect(response.body[0].recipes).toHaveLength(1);
+    expect(seasonJanuary && seasonJanuary.recipes).toHaveLength(3);
   });
   test('Sets the recipes in the seasons name', () => {
-    expect(response.body[0].recipes[0].name).toBe('recipe 1');
+    expect(
+      seasonJanuary
+      && seasonJanuary.recipes
+      && seasonJanuary.recipes[0].name
+    ).toBe('Apple, Beetroot & Meat');
   });
 });
 
 const makeSingleSeasonWithRecipesRequest = (
-  id: string = '0',
+  seasonIndex: string = SEASON_INDEX_JANUARY,
   isVegetarian?: boolean,
   isVegan?: boolean
 ) => {
@@ -48,7 +60,7 @@ const makeSingleSeasonWithRecipesRequest = (
     isVegan && 'is-vegan=true'
   ].filter(Boolean).join('&');
   const queryString = query ? `?${query}` : '';
-  return supertest(app).get(`/${v2SeasonWithRecipesUrl}/${id}${queryString}`);
+  return supertest(app).get(`/${v2SeasonWithRecipesUrl}/${seasonIndex}${queryString}`);
 };
 
 describe('Get single season with recipes', () => {
@@ -56,7 +68,7 @@ describe('Get single season with recipes', () => {
 
   describe('when the season has no recipes', () => {
     beforeAll(async () => {
-      response = await makeSingleSeasonWithRecipesRequest();
+      response = await makeSingleSeasonWithRecipesRequest(SEASON_INDEX_MARCH);
     });
 
     test('Returns a status of 200', () => {
@@ -72,7 +84,7 @@ describe('Get single season with recipes', () => {
 
   describe('when the season has recipes', () => {
     beforeAll(async () => {
-      response = await makeSingleSeasonWithRecipesRequest('1');
+      response = await makeSingleSeasonWithRecipesRequest(SEASON_INDEX_JANUARY);
     });
 
     test('Retrieves a single season with food and recipe data', () => {
@@ -81,10 +93,10 @@ describe('Get single season with recipes', () => {
     test('Populates a seasons recipes if they exist', () => {
       expect(response.body.recipes.length > 0).toBe(true);
     });
-    test('Populates a seasons recipes isVegetarian if true', () => {
-      expect(response.body.recipes[0].isVegetarian).toBe(true);
+    test('Returns a seasons recipes isVegetarian if true', () => {
+      expect(response.body.recipes[1].isVegetarian).toBe(true);
     });
-    test('Populates a seasons recipes isVegan if true', () => {
+    test('Returns a seasons recipes isVegan if true', () => {
       expect(response.body.recipes[2].isVegan).toBe(true);
     });
     test('Does not return any primaryFood on a recipe', () => {
@@ -100,7 +112,9 @@ describe('Get single season with recipes', () => {
 
   describe('when an isVegetarian filter is applied', () => {
     beforeAll(async () => {
-      response = await makeSingleSeasonWithRecipesRequest('1', true);
+      response = await makeSingleSeasonWithRecipesRequest(
+        SEASON_INDEX_JANUARY, true
+      );
     });
     test('Retrieves the expected data', () => {
       expect(response.body).toMatchSnapshot();
@@ -118,7 +132,9 @@ describe('Get single season with recipes', () => {
 
   describe('when an isVegan filter is applied', () => {
     beforeAll(async () => {
-      response = await makeSingleSeasonWithRecipesRequest('1', false, true);
+      response = await makeSingleSeasonWithRecipesRequest(
+        SEASON_INDEX_FEBRUARY, false, true
+      );
     });
     test('Retrieves the expected data', () => {
       expect(response.body).toMatchSnapshot();
@@ -133,7 +149,9 @@ describe('Get single season with recipes', () => {
 
   describe('when both isVegan and isVegetarian filter is applied', () => {
     beforeAll(async () => {
-      response = await makeSingleSeasonWithRecipesRequest('1', true, true);
+      response = await makeSingleSeasonWithRecipesRequest(
+        SEASON_INDEX_FEBRUARY, true, true
+      );
     });
     test('Retrieves the expected data', () => {
       expect(response.body).toMatchSnapshot();

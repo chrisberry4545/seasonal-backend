@@ -1,63 +1,56 @@
-import {
-  AIRTABLE_TABLES
-} from '../const';
+import { queryPostgres, getSqlQuery } from '../postgres';
+import { IHydratedSeason, IBaseSeason } from '@chrisb-dev/seasonal-shared';
 
-import {
-  filterByField,
-  retrieveAirtableData,
-  retrieveSingleAirtableRow,
-  filterByIds
-} from '../airtable';
-
-import {
-  IAirtableSeason,
-  IBaseSeason
-} from '@chrisb-dev/seasonal-shared';
-
-export const getAllSeasonData = (
-  countryCode?: string
-): Promise<IAirtableSeason[]> => {
-  return retrieveAirtableData<IAirtableSeason>({
-    countryCode,
-    fields: [
-      'name'
-    ],
-    sort: [{
-      direction: 'asc',
-      field: 'seasonIndex'
-    }],
-    tableName: AIRTABLE_TABLES.SEASONS
-  });
+export const getAllSeasonData = async (): Promise<IBaseSeason[]> => {
+  const getAllSeasonsQuery = await getSqlQuery('get-basic-seasons.sql');
+  const result = await queryPostgres<IBaseSeason>(getAllSeasonsQuery);
+  return result.rows;
 };
 
-export const getSeasonDataWithIds = (
-  ids: string[] | string,
-  countryCode?: string
-): Promise<IBaseSeason[]> => {
-  return retrieveAirtableData<IBaseSeason>({
-    countryCode,
-    fields: [
-      'name',
-      'seasonIndex'
-    ],
-    filterByFormula: filterByIds(ids),
-    tableName: AIRTABLE_TABLES.SEASONS
-  });
-};
+const getSeasonDataWithFoodQuery = (): Promise<string> =>
+  getSqlQuery('get-seasons-with-food.sql');
 
-export const getSeasonDataBySeasonIndex = (
+export const getSeasonsDataWithFoodBySeasonIndex = async (
   seasonIndex: number,
   countryCode?: string
-): Promise<IAirtableSeason> => {
-  return retrieveSingleAirtableRow<IAirtableSeason>({
-    countryCode,
-    fields: [
-      'name',
-      'food',
-      'recipes'
-    ],
-    filterByFormula:
-      filterByField<IAirtableSeason>('seasonIndex', seasonIndex),
-    tableName: AIRTABLE_TABLES.SEASONS
-  });
+): Promise<IHydratedSeason> => {
+  const result = await queryPostgres<IHydratedSeason>(
+    await getSeasonDataWithFoodQuery(),
+    [countryCode, seasonIndex]
+  );
+  return result.rows[0];
+};
+
+export const getAllSeasonDataWithFood = async (
+  countryCode?: string
+): Promise<IHydratedSeason[]> => {
+  const result = await queryPostgres<IHydratedSeason>(
+    await getSeasonDataWithFoodQuery(),
+    [countryCode, null]
+  );
+  return result.rows;
+};
+
+const getSeasonDataWithRecipesQuery = () =>
+  getSqlQuery('get-seasons-with-recipes.sql');
+
+export const getSeasonsDataWithRecipesBySeasonIndex = async (
+  seasonIndex: number,
+  countryCode?: string
+): Promise<IHydratedSeason  > => {
+  const result = await queryPostgres<IHydratedSeason>(
+    await getSeasonDataWithRecipesQuery(),
+    [countryCode, seasonIndex]
+  );
+  return result.rows[0];
+};
+
+export const getAllSeasonDataWithRecipes = async (
+  countryCode?: string
+): Promise<IHydratedSeason[]> => {
+  const result = await queryPostgres<IHydratedSeason>(
+    await getSeasonDataWithRecipesQuery(),
+    [countryCode, null]
+  );
+  return result.rows;
 };

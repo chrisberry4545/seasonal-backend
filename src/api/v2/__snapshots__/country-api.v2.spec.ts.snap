@@ -3,54 +3,30 @@
 exports[`Get countries Retrieves a single food item 1`] = `
 Array [
   Object {
-    "id": "GBR",
-    "name": "Great Britain & Ireland",
+    "id": "d6e57673-eee8-444a-b7be-d9ab553052cf",
+    "name": "Australia",
     "regions": Array [
       Object {
-        "code": "gbr",
+        "code": "aus-sydney",
         "latLng": Object {
-          "lat": 51.5074,
-          "lng": -0.118092,
+          "lat": -50,
+          "lng": -50,
         },
-        "name": "Great Britain & Ireland",
+        "name": "Sydney",
       },
     ],
   },
   Object {
-    "id": "AUS",
-    "name": "Australia",
+    "id": "1fc52423-eb83-4cd9-9fdd-b6f9cb323c37",
+    "name": "UK",
     "regions": Array [
       Object {
-        "code": "aus-brisbane",
+        "code": "gbr",
         "latLng": Object {
-          "lat": -27.4698,
-          "lng": 153.0251,
+          "lat": 50,
+          "lng": 50,
         },
-        "name": "Brisbane",
-      },
-      Object {
-        "code": "aus-melbourne",
-        "latLng": Object {
-          "lat": -37.840935,
-          "lng": 144.946457,
-        },
-        "name": "Melbourne",
-      },
-      Object {
-        "code": "aus-perth",
-        "latLng": Object {
-          "lat": -31.953512,
-          "lng": 115.857048,
-        },
-        "name": "Perth",
-      },
-      Object {
-        "code": "aus-sydney",
-        "latLng": Object {
-          "lat": -33.865143,
-          "lng": 151.2099,
-        },
-        "name": "Sydney",
+        "name": "UK",
       },
     ],
   },

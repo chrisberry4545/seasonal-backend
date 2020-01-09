@@ -5,22 +5,37 @@ Array [
   Object {
     "food": Array [
       Object {
-        "id": "f1",
+        "id": "dd9ba012-8f8e-48af-9775-0139374dd94c",
+        "imageUrlSmall": "https://apple.com",
+        "name": "Apple",
+      },
+      Object {
+        "id": "c6f78568-fe23-47e4-8e65-55934199a39f",
+        "imageUrlSmall": "https://beetroot.com",
         "name": "Beetroot",
       },
     ],
-    "id": "0",
+    "id": "41bcbb3a-5599-4f0c-8da9-3144cc5be6de",
     "name": "January",
+    "seasonIndex": "0",
   },
   Object {
     "food": Array [
       Object {
-        "id": "f1",
+        "id": "c6f78568-fe23-47e4-8e65-55934199a39f",
+        "imageUrlSmall": "https://beetroot.com",
         "name": "Beetroot",
       },
     ],
-    "id": "1",
+    "id": "eec0b2bb-4fbd-46df-b905-8d2ee2fb991a",
     "name": "February",
+    "seasonIndex": "1",
+  },
+  Object {
+    "food": Array [],
+    "id": "f4812071-b0e2-4255-8ccf-e38768ad0c3c",
+    "name": "March",
+    "seasonIndex": "2",
   },
 ]
 `;
@@ -29,22 +44,22 @@ exports[`Get single season with food when the requested season has food data Ret
 Object {
   "food": Array [
     Object {
-      "id": "f2",
-      "name": "Apple",
-    },
-    Object {
-      "id": "f1",
-      "name": "Beetroot",
+      "id": "c6f78568-fe23-47e4-8e65-55934199a39f",
+      "imageUrlSmall": "https://beetroot.com",
+      "name": "Down Under Beetroot",
     },
   ],
-  "id": "1",
+  "id": "eec0b2bb-4fbd-46df-b905-8d2ee2fb991a",
   "name": "February",
+  "seasonIndex": "1",
 }
 `;
 
 exports[`Get single season with food when the requested season has no food Retrieves a single season 1`] = `
 Object {
-  "id": "0",
-  "name": "January",
+  "food": Array [],
+  "id": "f4812071-b0e2-4255-8ccf-e38768ad0c3c",
+  "name": "March",
+  "seasonIndex": "2",
 }
 `;

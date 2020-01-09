@@ -1,19 +1,22 @@
 import {
-  airtableMockSetup
-} from '../mocks';
-airtableMockSetup();
-
-import {
   app
 } from '../../app';
 
 import supertest, { Response } from 'supertest';
 import { V2_ENDPOINT, FOOD_ENDPOINT } from '../../config';
+import {
+  RECIPES_ID_PICKLED_BEETROOT,
+  SEASON_ID_JANUARY,
+  SEASON_ID_FEBRUARY,
+  FOOD_ID_BEETROOT,
+  FOOD_ID_ONION,
+  RECIPES_ID_APPLE_CHEESE_AND_ONION
+} from './shared-test-ids';
 
 const v2FoodUrl = `${V2_ENDPOINT}/${FOOD_ENDPOINT}`;
 
 const makeSingleFoodRequest = async (
-  id: string = 'f1',
+  id: string = FOOD_ID_BEETROOT,
   isVegetarian?: boolean,
   isVegan?: boolean
 ) => {
@@ -53,27 +56,24 @@ describe('Get single food item', () => {
     expect(response.body.seasons[1].seasonIndex).toBe(1);
   });
   test('Hydrates the seasons ids of the first season', () => {
-    expect(response.body.seasons[0].id).toBe('0');
+    expect(response.body.seasons[0].id).toBe(SEASON_ID_JANUARY);
   });
   test('Hydrates the seasons ids of the second season', () => {
-    expect(response.body.seasons[1].id).toBe('1');
+    expect(response.body.seasons[1].id).toBe(SEASON_ID_FEBRUARY);
   });
   test('Hydrates a foods primaryFoodInRecipe ids if they exist', () => {
-    expect(response.body.primaryFoodInRecipe[0].id).toBe('r1');
+    expect(response.body.primaryFoodInRecipe[0].id).toBe(RECIPES_ID_PICKLED_BEETROOT);
   });
   test('Hydrates a foods primaryFoodInRecipe names if they exist', () => {
-    expect(response.body.primaryFoodInRecipe[0].name).toBe('recipe 1');
+    expect(response.body.primaryFoodInRecipe[0].name).toBe('Pickled Beetroot');
   });
-  test('Hydrates a foods secondaryFoodInRecipe ids if they exist', () => {
-    expect(response.body.secondaryFoodInRecipe[0].id).toBe('r2');
-  });
-  test('Hydrates a foods secondaryFoodInRecipe names if they exist', () => {
-    expect(response.body.secondaryFoodInRecipe[0].name).toBe('other recipe');
+  test('Returns an empty array for a foods secondaryFoodInRecipe if there is none', () => {
+    expect(response.body.secondaryFoodInRecipe).toHaveLength(0);
   });
 
   describe('When the isVegetarian filter is applied', () => {
     beforeEach(async () => {
-      response = await makeSingleFoodRequest('f1', true);
+      response = await makeSingleFoodRequest(FOOD_ID_BEETROOT, true);
     });
 
     test('Returns a status of 200', () => {
@@ -88,14 +88,11 @@ describe('Get single food item', () => {
     test('Returns the vegan recipes', () => {
       expect(response.body.primaryFoodInRecipe[0].isVegan).toBe(true);
     });
-    test('Returns the vegetarian recipes', () => {
-      expect(response.body.secondaryFoodInRecipe[0].isVegetarian).toBe(true);
-    });
   });
 
   describe('When the isVegan filter is applied', () => {
     beforeEach(async () => {
-      response = await makeSingleFoodRequest('f1', false, true);
+      response = await makeSingleFoodRequest(FOOD_ID_BEETROOT, false, true);
     });
 
     test('Returns a status of 200', () => {
@@ -109,6 +106,58 @@ describe('Get single food item', () => {
     });
     test('Returns only the vegan recipes', () => {
       expect(response.body.primaryFoodInRecipe[0].isVegan).toBe(true);
+    });
+  });
+
+  describe('when the food is a secondary food item in recipes', () => {
+    beforeAll(async () => {
+      response = await makeSingleFoodRequest(
+        FOOD_ID_ONION
+      );
+    });
+
+    test('Returns a status of 200', () => {
+      expect(response.status).toBe(200);
+    });
+    test('Retrieves a single food item', () => {
+      expect(response.body).toMatchSnapshot();
+    });
+    test('Retrieves a foods secondaryFoodInRecipe names if they exist', () => {
+      expect(response.body.secondaryFoodInRecipe[0].id)
+        .toBe(RECIPES_ID_APPLE_CHEESE_AND_ONION);
+    });
+    test('Retrieves a foods secondaryFoodInRecipe names if they exist', () => {
+      expect(response.body.secondaryFoodInRecipe[0].name).toBe('Apple, Cheese & Onion');
+    });
+
+    describe('and the isVegan recipe is applied', () => {
+      beforeAll(async () => {
+        response = await makeSingleFoodRequest(
+          FOOD_ID_ONION, false, true
+        );
+      });
+
+      test('returns the expected result', () => {
+        expect(response.body).toMatchSnapshot();
+      });
+      test('filters out non vegan recipes', () => {
+        expect(response.body.secondaryFoodInRecipe).toHaveLength(0);
+      });
+    });
+
+    describe('and the isVegetarian recipe is applied', () => {
+      beforeAll(async () => {
+        response = await makeSingleFoodRequest(
+          FOOD_ID_ONION, true
+        );
+      });
+
+      test('returns the expected result', () => {
+        expect(response.body).toMatchSnapshot();
+      });
+      test('does not filter out vegetarian recipes', () => {
+        expect(response.body.secondaryFoodInRecipe).toHaveLength(1);
+      });
     });
   });
 });

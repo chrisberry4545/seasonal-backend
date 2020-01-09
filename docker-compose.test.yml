@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+
+  postgres:
+    build: ./db
+    container_name: postgres
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: db
+
+  app-test:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DB_CONNECTION_STRING: postgres://user:pass@postgres:5432/db
+      DEFAULT_COUNTRY_ID: gbr
+    command: npm run test

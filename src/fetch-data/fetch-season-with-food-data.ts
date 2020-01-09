@@ -1,9 +1,6 @@
 import {
-  getSeasonDataBySeasonIndex,
-  sortHydratedSeasonDataByFood,
-  getAllFoodData,
-  hydrateSeasonDataWithFood,
-  cleanSeasonDataWithFood
+  getAllSeasonDataWithFood,
+  getSeasonsDataWithFoodBySeasonIndex
 } from '../data-access';
 
 import {
@@ -12,7 +9,7 @@ import {
 } from '../cache';
 
 import { IHydratedSeason } from '@chrisb-dev/seasonal-shared';
-import { fetchAllSeasonData } from './fetch-season-data';
+import { DEFAULT_COUNTRY_ID } from '../config';
 
 const allSeasonsWithFoodCache = new Cache<IHydratedSeason[]>();
 const allSeasonsWithFoodCacheKey = 'season-with-food';
@@ -24,32 +21,17 @@ export const fetchSeasonWithFood = cacheFunctionResponse(
   singleSeasonWithFoodCache,
   singleSeasonWithFoodCacheKey,
   async (
-    seasonIndex: number, countryCode?: string
-  ): Promise<IHydratedSeason> => {
-    const result = await getSeasonDataBySeasonIndex(seasonIndex, countryCode);
-    const hydratedResult = await hydrateSeasonDataWithFood(result, countryCode);
-    const sortedResult = sortHydratedSeasonDataByFood(hydratedResult);
-    const cleanedResult = cleanSeasonDataWithFood(sortedResult);
-    return cleanedResult;
-  }
+    seasonIndex: number, countryCode: string = DEFAULT_COUNTRY_ID
+  ): Promise<IHydratedSeason> => getSeasonsDataWithFoodBySeasonIndex(
+    seasonIndex,
+    countryCode
+  )
 );
 
 export const fetchAllSeasonsWithFood = cacheFunctionResponse(
   allSeasonsWithFoodCache,
   allSeasonsWithFoodCacheKey,
-  async (countryCode?: string): Promise<IHydratedSeason[]> => {
-    const [allFoodData, allSeasonData] = await Promise.all([
-      getAllFoodData(countryCode), fetchAllSeasonData(countryCode)
-    ]);
-    const hydratedResult: IHydratedSeason[] = allSeasonData.map((season) => ({
-      ...season,
-      food: allFoodData.filter(({ seasons }) => (
-        seasons && seasons.includes(season.id)
-      )).map((food) => ({
-        ...food,
-        seasons: undefined
-      }))
-    }));
-    return hydratedResult;
-  }
+  async (
+    countryCode: string = DEFAULT_COUNTRY_ID
+  ): Promise<IHydratedSeason[]> => getAllSeasonDataWithFood(countryCode)
 );
