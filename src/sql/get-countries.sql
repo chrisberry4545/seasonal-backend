@@ -20,4 +20,4 @@ SELECT
     WHERE regions.country_id = countries.id
   )
 FROM countries
-ORDER BY countries.name;
+ORDER BY countries.name DESC;

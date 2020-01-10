@@ -3,20 +3,6 @@
 exports[`Get countries Retrieves a single food item 1`] = `
 Array [
   Object {
-    "id": "d6e57673-eee8-444a-b7be-d9ab553052cf",
-    "name": "Australia",
-    "regions": Array [
-      Object {
-        "code": "aus-sydney",
-        "latLng": Object {
-          "lat": -50,
-          "lng": -50,
-        },
-        "name": "Sydney",
-      },
-    ],
-  },
-  Object {
     "id": "1fc52423-eb83-4cd9-9fdd-b6f9cb323c37",
     "name": "UK",
     "regions": Array [
@@ -27,6 +13,20 @@ Array [
           "lng": 50,
         },
         "name": "UK",
+      },
+    ],
+  },
+  Object {
+    "id": "d6e57673-eee8-444a-b7be-d9ab553052cf",
+    "name": "Australia",
+    "regions": Array [
+      Object {
+        "code": "aus-sydney",
+        "latLng": Object {
+          "lat": -50,
+          "lng": -50,
+        },
+        "name": "Sydney",
       },
     ],
   },
